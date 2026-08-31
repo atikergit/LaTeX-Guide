@@ -1,0 +1,72 @@
+% =====================================================
+%  DAY 2 -- PRACTICE CODE SHEET
+%  Math Mode for Economists
+%  "From \begin to \end: The Complete LaTeX Guide"
+%  White Globe Initiative | Instructor: Atikur Rahman
+%
+%  Every block below is exactly the code taught in the Day 2
+%  slides, assembled into one file so you can compile every
+%  example's output at once. Compile with pdflatex.
+% =====================================================
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}  % Topic: The amsmath Package
+
+\begin{document}
+
+% ---- Topic: Inline vs. Display Math ----
+\section*{Inline vs.\ Display Math}
+The elasticity is $\varepsilon = \frac{dQ}{dP}\cdot\frac{P}{Q}$.
+
+\begin{equation}
+  \pi = TR - TC
+\end{equation}
+
+% ---- Topic: Subscripts and Superscripts ----
+\section*{Subscripts and Superscripts}
+$x_i$              % single-character subscript
+\quad
+$Y_{it}$           % braces needed for multi-character
+\quad
+$X_{i,t-1}^{2}$    % subscript AND superscript, lagged
+
+% ---- Topic: Greek Letters and Common Symbols ----
+\section*{Greek Letters and Common Symbols}
+$\alpha$  $\beta$  $\theta$  $\lambda$  $\sigma$
+\quad
+$\Sigma$  $\Delta$  $\Omega$  $\infty$
+
+% ---- Topic: Operators: Sums, Products, Limits, Max ----
+\section*{Operators: Sums, Products, Limits, Max}
+$\displaystyle\sum_{i=1}^{n} x_i \qquad \lim_{x\to\infty} \qquad
+\operatorname*{argmax}_{x} f(x)$
+
+% ---- Topic: Fractions and Binomials ----
+\section*{Fractions and Binomials}
+$\varepsilon_d = \dfrac{\%\,\Delta Q_d}{\%\,\Delta P}
+\qquad \dbinom{n}{k} = \dfrac{n!}{k!(n-k)!}$
+
+% ---- Topic: Multi-line Derivations with align ----
+\section*{Multi-line Derivations with align}
+\begin{align}
+  \hat{\beta} &= (X'X)^{-1}X'Y \\
+  \text{Var}(\hat{\beta}) &= \sigma^2 (X'X)^{-1}
+\end{align}
+
+% ---- Topic: Matrices: Linear Algebra & Game Theory ----
+\section*{Matrices: Linear Algebra \& Game Theory}
+$\begin{pmatrix} 1 & 0.5 \\ 0.5 & 1 \end{pmatrix}
+\qquad
+\begin{pmatrix} (3,3) & (0,5) \\ (5,0) & (1,1) \end{pmatrix}$
+
+% ---- Topic: Labeling and Referencing Equations ----
+\section*{Labeling and Referencing Equations}
+\begin{equation}
+  \label{eq:cobb-douglas}
+  Y = A K^{\alpha} L^{1-\alpha}
+\end{equation}
+
+As shown in Equation~\eqref{eq:cobb-douglas}, output depends on...
+
+\end{document}

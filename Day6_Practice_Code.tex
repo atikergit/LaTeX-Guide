@@ -1,0 +1,49 @@
+% =====================================================
+%  DAY 6 -- PRACTICE CODE SHEET
+%  Journal Templates & Professional Formatting
+%  "From \begin to \end: The Complete LaTeX Guide"
+%  White Globe Initiative | Instructor: Atikur Rahman
+%
+%  Every block below is exactly the code taught in the Day 6
+%  slides. NOTE: \JEL and \keywords are normally provided by a
+%  journal template class (e.g. elsarticle) -- since this sheet
+%  uses plain article for portability, simple stand-in versions
+%  are defined below so the same code compiles the same way.
+%  In a real journal template you would delete these two
+%  \newcommand lines and use the template's built-in versions.
+% =====================================================
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+
+\newcommand{\JEL}[1]{\par\noindent\textit{JEL classification:} #1}
+\newcommand{\keywords}[1]{\par\noindent\textit{Keywords:} #1}
+
+% ---- Topic: Filling In the Template's Metadata ----
+\title{Remittances and Consumption Smoothing}
+\author{Jane Economist}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This paper examines remittance inflows...
+\end{abstract}
+\JEL{F24, D14, O15}
+\keywords{remittances, migration}
+
+\bigskip
+% ---- Topic: When a Template Doesn't Match House Style ----
+\section*{Page Size, Margins \& Colour}
+\begin{center}
+\rowcolors{1}{gray!12}{white}
+\begin{tabular}{lcc}
+  Bangladesh & 6.0\% & 5.4\% \\
+  India & 7.2\% & 5.1\% \\
+\end{tabular}
+\end{center}
+
+\end{document}

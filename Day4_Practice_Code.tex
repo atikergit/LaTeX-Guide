@@ -1,0 +1,74 @@
+% =====================================================
+%  DAY 4 -- PRACTICE CODE SHEET
+%  Citations & Bibliography
+%  "From \begin to \end: The Complete LaTeX Guide"
+%  White Globe Initiative | Instructor: Atikur Rahman
+%
+%  Every block below is exactly the code taught in the Day 4
+%  slides. This sheet embeds its own Day4_references.bib using the
+%  filecontents package, so it is fully self-contained -- no
+%  separate .bib file to create by hand.
+%
+%  COMPILE SEQUENCE (bibliographies always need this 4-step
+%  pass, in any LaTeX project, not just this one):
+%    1. pdflatex Day4_Practice_Code
+%    2. bibtex   Day4_Practice_Code
+%    3. pdflatex Day4_Practice_Code
+%    4. pdflatex Day4_Practice_Code
+%  In Overleaf this happens automatically when you compile.
+% =====================================================
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{filecontents}
+
+% ---- Topic: The .bib File ----
+\begin{filecontents*}[overwrite]{Day4_references.bib}
+@article{nandi2022financial,
+  author  = {Nandi, Biplob Kumar and Hasan, Gazi Quamrul
+             and Kabir, Mohammad Habibullah},
+  title   = {A Tale of the Financial Inclusion-Growth Nexus},
+  journal = {Journal of Financial Economic Policy},
+  year    = {2022},
+  volume  = {14},
+  number  = {3},
+  pages   = {381--402}
+}
+
+@article{nandi2024crude,
+  author  = {Nandi, Biplob Kumar},
+  title   = {Crude Oil Price Hikes and Exchange Rate Volatility in {Bangladesh}},
+  journal = {Resources Policy},
+  year    = {2024}
+}
+\end{filecontents*}
+
+% ---- Topic: natbib: Author-Year Citations ----
+\usepackage[authoryear]{natbib}
+\bibliographystyle{apalike}
+% "agsm" is another common economics style (from the harvard
+% package) but isn't in every TeX install by default -- Overleaf
+% has it pre-installed. apalike ships with every distribution
+% and gives the same author-year format, so it's used here for
+% guaranteed compilation.
+
+\begin{document}
+
+% ---- Topic: Cross-Referencing Sections, Equations, Tables, Figures ----
+\section{Empirical Strategy}
+\label{sec:strategy}
+
+As discussed in Section~\ref{sec:strategy}, we estimate...
+
+\section{Literature Review}
+
+% ---- Topic: Citation Commands: citet and citep ----
+\citet{nandi2022financial} find a positive link between
+financial inclusion and growth.
+
+Financial deepening supports growth
+\citep{nandi2022financial}.
+
+\bibliography{Day4_references}
+
+\end{document}

@@ -1,0 +1,77 @@
+% =====================================================
+%  DAY 5 -- PRACTICE CODE SHEET
+%  Document Structure & Long-Document Tools
+%  "From \begin to \end: The Complete LaTeX Guide"
+%  White Globe Initiative | Instructor: Atikur Rahman
+%
+%  Every block below is exactly the code taught in the Day 5
+%  slides. This sheet demonstrates the multi-file \input
+%  workflow for real, so it ships with three tiny companion
+%  files that MUST sit in the same folder as this one:
+%    Day5_introduction.tex
+%    Day5_literature.tex
+%    Day5_methodology.tex
+%  It also embeds its own Day5_references.bib via filecontents.
+%
+%  COMPILE SEQUENCE (because of the bibliography):
+%    1. pdflatex Day5_Practice_Code
+%    2. bibtex   Day5_Practice_Code
+%    3. pdflatex Day5_Practice_Code
+%    4. pdflatex Day5_Practice_Code
+% =====================================================
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{filecontents}
+
+\begin{filecontents*}[overwrite]{Day5_references.bib}
+@article{nandi2024crude,
+  author  = {Nandi, Biplob Kumar},
+  title   = {Crude Oil Price Hikes and Exchange Rate Volatility in {Bangladesh}},
+  journal = {Resources Policy},
+  year    = {2024}
+}
+\end{filecontents*}
+
+\usepackage[authoryear]{natbib}
+\bibliographystyle{apalike}
+% (see the note in Day4_Practice_Code.tex on agsm vs. apalike)
+
+\usepackage{fancyhdr}   % Topic: Page Numbering, Headers and Footers
+\usepackage{hyperref}   % Topic: Hyperlinks -- load LAST in the preamble
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Draft -- Do Not Circulate}
+\lhead{Remittances and Consumption Smoothing}
+\cfoot{\thepage}
+
+\title{Remittances and Consumption Smoothing}
+\author{Jane Economist}
+
+\begin{document}
+
+\maketitle
+
+% ---- Topic: Table of Contents ----
+\tableofcontents
+
+% ---- Topic: Splitting a Long Paper Across Files ----
+\input{Day5_introduction}
+\input{Day5_literature}
+\input{Day5_methodology}
+
+\section{Discussion}
+
+% ---- Topic: How to Include a Footnote ----
+Inflation targeting has been the dominant framework
+since the 1990s.\footnote{See \citet{nandi2024crude}
+for a related discussion of exchange-rate volatility.}
+
+% ---- Topic: hyperref: Clickable Cross-References ----
+See Section~\ref{sec:strategy} or visit
+\href{https://whiteglobeinitiative.org}{our website}.
+
+\bibliography{Day5_references}
+
+\end{document}

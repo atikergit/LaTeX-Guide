@@ -1,0 +1,40 @@
+% =====================================================
+%  DAY 7 -- PRACTICE CODE SHEET
+%  Troubleshooting, Polish & Independent Mastery
+%  "From \begin to \end: The Complete LaTeX Guide"
+%  White Globe Initiative | Instructor: Atikur Rahman
+%
+%  Day 7 is about diagnosing errors, so this sheet shows the
+%  "Big Three" broken examples from the slides as commented-out
+%  BROKEN code, paired with the FIXED version right below it,
+%  so the file still compiles cleanly end to end. Try
+%  uncommenting a BROKEN line (and commenting out its FIXED
+%  pair) to see the real error yourself.
+% =====================================================
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+
+% ---- Error 1: Undefined Control Sequence ----
+\section*{Error 1: Undefined Control Sequence}
+% BROKEN: \textb{Significant results}
+% FIXED:
+\textbf{Significant results}
+
+% ---- Error 2: Missing $ Inserted ----
+\section*{Error 2: Missing \$ Inserted}
+% BROKEN: The share of GDP is  15%.
+% FIXED (escape the percent sign):
+The share of GDP is 15\%.
+
+% ---- Error 3: Mismatched begin/end ----
+\section*{Error 3: Mismatched begin/end}
+% BROKEN: \begin{itemize} ... \end{document}  (itemize never closed)
+% FIXED:
+\begin{itemize}
+  \item Every \verb|\begin| needs a matching \verb|\end|.
+\end{itemize}
+
+\end{document}

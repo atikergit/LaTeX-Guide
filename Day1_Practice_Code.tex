@@ -1,0 +1,57 @@
+% =====================================================
+%  DAY 1 -- PRACTICE CODE SHEET
+%  Setup & Document Anatomy
+%  "From \begin to \end: The Complete LaTeX Guide"
+%  White Globe Initiative | Instructor: Atikur Rahman
+%
+%  Every block below is exactly the code taught in the Day 1
+%  slides, assembled into one file so you can compile every
+%  example's output at once. Compile with pdflatex.
+% =====================================================
+
+\documentclass[11pt,a4paper]{article}   % Topic: Document Class & Packages
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}   % math tools (Day 2)
+\usepackage{graphicx}  % images (Day 3)
+
+% ---- Topic: The Title Block ----
+\title{Remittances and Household Consumption Smoothing}
+\author{Jane Economist \\ Department of Economics}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% ---- Topic: Sections and Subsections ----
+\section{Introduction}
+\subsection{Motivation}
+
+\section{Data and Methodology}
+
+% ---- Topic: Paragraphs and Line Breaks ----
+This is one paragraph. LaTeX ignores
+single line breaks in your source code.
+
+A blank line starts a new paragraph.
+
+Force a line break without a new paragraph \\
+like this.
+
+% ---- Topic: Bold, Italics, and Comments ----
+This finding is \textbf{statistically significant}
+at the \textit{5\% level}. % not the 10% level
+
+Growth was \underline{negative} in 2020.
+
+% ---- Topic: Reading Compile Errors ----
+% The three lines below are broken ON PURPOSE and are kept
+% commented out so this file still compiles cleanly. Uncomment
+% ONE at a time in Overleaf to see the exact error, then comment
+% it out again before moving on.
+%
+% \textb{Significant results}          % Undefined control sequence
+% The share of GDP is  15%.            % Missing $ inserted
+% \begin{itemize} ... \end{document}   % Mismatched begin/end
+
+\end{document}

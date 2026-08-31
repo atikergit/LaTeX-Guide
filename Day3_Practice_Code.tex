@@ -1,0 +1,94 @@
+% =====================================================
+%  DAY 3 -- PRACTICE CODE SHEET
+%  Tables, Figures & Regression Output
+%  "From \begin to \end: The Complete LaTeX Guide"
+%  White Globe Initiative | Instructor: Atikur Rahman
+%
+%  Every block below is exactly the code taught in the Day 3
+%  slides, assembled into one file so you can compile every
+%  example's output at once. Compile with pdflatex.
+%
+%  NOTE: the figure example uses graphicx's [demo] option,
+%  which draws a placeholder box instead of requiring a real
+%  image file, so this sheet compiles standalone. Remove
+%  [demo] and point \includegraphics at your own file in
+%  real work.
+% =====================================================
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage[demo]{graphicx}
+
+\begin{document}
+
+% ---- Topic: The Basics: tabular ----
+\section*{The Basics: tabular}
+\begin{tabular}{lcc}
+  Country & GDP Growth & Inflation \\
+  Bangladesh & 6.0\% & 5.4\% \\
+  India & 7.2\% & 5.1\% \\
+\end{tabular}
+
+\bigskip
+% ---- Topic: booktabs: The Economics-Journal Look ----
+\section*{booktabs: The Economics-Journal Look}
+\begin{tabular}{lcc}
+  \toprule
+  Country & GDP Growth & Inflation \\
+  \midrule
+  Bangladesh & 6.0\% & 5.4\% \\
+  \bottomrule
+\end{tabular}
+
+\bigskip
+% ---- Topic: Grouped Headers with multicolumn ----
+\section*{Grouped Headers with multicolumn}
+\begin{tabular}{lccc}
+  \toprule
+  & \multicolumn{3}{c}{Model} \\
+  \cmidrule(lr){2-4}
+  Variable & (1) & (2) & (3) \\
+  \midrule
+  Education & 0.08 & 0.07 & 0.07 \\
+  \bottomrule
+\end{tabular}
+
+% ---- Topic: A Complete Regression Table ----
+\section*{A Complete Regression Table}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lccc}
+  \toprule
+   & (1) & (2) & (3) \\
+   & Baseline & +Controls & +Fixed Effects \\
+  \midrule
+  Education & 0.082*** & 0.075*** & 0.069*** \\
+   & (0.011) & (0.010) & (0.012) \\
+  Experience & & 0.021** & 0.019** \\
+   & & (0.009) & (0.008) \\
+  Constant & 8.21*** & 7.95*** & 8.02*** \\
+   & (0.15) & (0.18) & (0.20) \\
+  \midrule
+  Observations & 1{,}204 & 1{,}204 & 1{,}204 \\
+  $R^2$ & 0.14 & 0.19 & 0.23 \\
+  \bottomrule
+\end{tabular}
+\caption{OLS Regression Results}
+\end{table}
+
+% ---- Topic: The figure Environment ----
+\section*{The figure Environment}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{gdp_growth.png}
+  \caption{GDP growth rate, 2010--2024}
+  \label{fig:gdp}
+\end{figure}
+
+% ---- Topic: Float Placement ----
+% [h] = here, [t] = top of page, [b] = bottom, [p] = own page.
+% \begin{table}[htbp] ... \end{table} lets LaTeX choose the
+% best fit among all four -- see the figure/table above.
+
+\end{document}
