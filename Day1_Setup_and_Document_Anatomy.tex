@@ -1,0 +1,377 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codekw}{RGB}{0,0,180}
+\lstdefinestyle{latexcode}{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{codekw}\bfseries,
+  commentstyle=\color{gray},
+  frame=single,
+  rulecolor=\color{gray!40},
+  breaklines=true,
+  showstringspaces=false,
+  xleftmargin=4pt,
+  xrightmargin=4pt,
+}
+\lstset{style=latexcode}
+
+% ---------- Output box: mimics the compiled PDF result ----------
+\newtcolorbox{outputbox}{
+  colback=white, colframe=black!65, boxrule=0.5pt, arc=1pt,
+  left=8pt, right=8pt, top=5pt, bottom=4pt,
+  title=\textsc{Compiled Output}, fonttitle=\bfseries\scriptsize,
+  coltitle=white, colbacktitle=black!65
+}
+
+% ---------- Explanation lead-in ----------
+\newcommand{\whybox}[1]{%
+  \vspace{2pt}
+  {\scriptsize\raggedright\textcolor{red!55!black}{\textbf{Why \& What:}}~#1\par}
+}
+
+\newtcolorbox{exercisebox}{
+  colback=orange!8, colframe=orange!70!black, boxrule=0.6pt,
+  arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  title={Hands-on Exercise}, fonttitle=\bfseries, coltitle=white,
+  colbacktitle=orange!70!black
+}
+\newtcolorbox{homeworkbox}{
+  colback=blue!6, colframe=blue!50!black, boxrule=0.6pt,
+  arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  title={Homework}, fonttitle=\bfseries, coltitle=white,
+  colbacktitle=blue!50!black
+}
+
+\title[\texttt{\textbackslash begin} to \texttt{\textbackslash end}]{From \texttt{\textbackslash begin} to \texttt{\textbackslash end}}
+\subtitle{The Complete LaTeX Guide \\[2pt] \normalsize Day 1 of 7: Setup \& Document Anatomy}
+\author[A.\ Rahman]{Atikur Rahman}
+\institute[White Globe Initiative]{White Globe Initiative}
+
+\setbeamertemplate{footline}{
+  \leavevmode
+  \hbox{%
+  \begin{beamercolorbox}[wd=.38\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=1em]{author in head/foot}%
+    \usebeamerfont{author in head/foot}White Globe Initiative
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.42\paperwidth,ht=2.5ex,dp=1.125ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}From \texttt{\textbackslash begin} to \texttt{\textbackslash end} --- Day 1
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.5ex,dp=1.125ex,right,rightskip=1em]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertframenumber{} / \inserttotalframenumber
+  \end{beamercolorbox}}%
+  \vskip0pt
+}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \begin{center}
+    \vspace{4pt}
+    {\Huge\bfseries\usebeamercolor[fg]{title}From \texttt{\textbackslash begin} to \texttt{\textbackslash end}}\\[6pt]
+    {\Large\itshape The Complete LaTeX Guide}\\[18pt]
+    {\large\bfseries Day 1 of 7 --- Setup \& Document Anatomy}\\[22pt]
+    \rule{0.7\textwidth}{0.4pt}\\[14pt]
+    \begin{tabular}{rl}
+      \textbf{Instructor:}       & Atikur Rahman \\[3pt]
+      \textbf{Organized by:}     & White Globe Initiative \\[3pt]
+      \textbf{Instructor Email:} & \texttt{atik@whiteglobeinitiative.org} \\[3pt]
+      \textbf{General Contact:}  & \texttt{contact@whiteglobeinitiative.org} \\[3pt]
+      \textbf{Format:}           & 7-Day Intensive Course \\[3pt]
+      \textbf{Session:}          & Day 1 of 7 \\
+    \end{tabular}\\[18pt]
+    \rule{0.7\textwidth}{0.4pt}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Today's Agenda}
+  \tableofcontents
+\end{frame}
+
+\section{Why LaTeX?}
+
+\begin{frame}{What Is LaTeX?}
+  \small
+  LaTeX is a \textbf{typesetting system}, not a word processor. Instead
+  of clicking buttons to make text bold or centered, you write plain
+  text with commands -- called \textbf{markup} -- that describe the
+  \emph{structure} of your document, and a compiler turns that markup
+  into a finished PDF. This is the opposite of Word or Google Docs,
+  where what you see on screen \emph{is} the final output
+  (\textbf{WYSIWYG}); in LaTeX, you describe what you \emph{mean}, and
+  the system decides how it \emph{looks} (\textbf{WYSIWYM}).
+  \vspace{6pt}
+  \begin{center}
+  \begin{tabular}{lcc}
+    \toprule
+    & \textbf{Word / Google Docs} & \textbf{LaTeX} \\
+    \midrule
+    Editing & Visual, direct & Source code + compile \\
+    Equations & Clunky editor & Native, precise \\
+    Tables \& refs & Manual & Automatic numbering \\
+    Large documents & Fragile & Robust, modular \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Why Economists Use LaTeX}
+  \small
+  Four reasons economists adopt LaTeX over Word: \textbf{equations}
+  (regressions, production functions, and game-theory payoffs are
+  typeset natively and precisely, not pasted in as blurry images);
+  \textbf{tables} (publication-quality regression tables in the exact
+  style journals expect); \textbf{reproducibility} (plain-text source
+  works cleanly with version control and co-author collaboration); and
+  \textbf{journal requirements} (AER, JPE, QJE, and most Elsevier
+  economics journals accept -- or require -- LaTeX and provide official
+  templates, covered on Day 6). Bibliography management (BibTeX/natbib,
+  Day 4) automates citations on top of all of this.
+\end{frame}
+
+\section{Getting Started with Overleaf}
+
+\begin{frame}{Overleaf: Your LaTeX Environment}
+  \small
+  \textbf{Overleaf} (\texttt{overleaf.com}) is a free, browser-based
+  LaTeX editor -- nothing to install, everything compiles in the cloud.
+  The editor has two halves: a \textbf{source pane} on the left, where
+  you type LaTeX code, and a \textbf{PDF preview} on the right, which
+  updates every time you \textbf{recompile} (click the green button, or
+  press Ctrl/Cmd+Enter). Today's workflow: \texttt{New Project}
+  $\rightarrow$ \texttt{Blank Project} $\rightarrow$ type code
+  $\rightarrow$ compile $\rightarrow$ read the result $\rightarrow$
+  repeat. You will do this dozens of times today -- that loop \emph{is}
+  how LaTeX is learned.
+\end{frame}
+
+\section{Anatomy of a Document}
+
+\begin{frame}[fragile]{The Minimal LaTeX Document}
+  \begin{lstlisting}
+\documentclass{article}
+
+\begin{document}
+Hello, economics!
+\end{document}
+  \end{lstlisting}
+  \begin{outputbox}
+    \small Hello, economics!
+  \end{outputbox}
+  \whybox{Every LaTeX file has exactly this skeleton. The
+  \textbf{preamble} (everything before \texttt{\textbackslash
+  begin\{document\}}) configures the document -- here it just names
+  the class. The \textbf{body} (between \texttt{\textbackslash
+  begin\{document\}} and \texttt{\textbackslash end\{document\}}) is
+  what actually gets typeset. Nothing outside \texttt{document} ever
+  appears in your PDF.}
+\end{frame}
+
+\begin{frame}[fragile]{Document Class \& Packages}
+  \begin{lstlisting}
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}   % math tools (Day 2)
+\usepackage{graphicx}  % images (Day 3)
+  \end{lstlisting}
+  \whybox{\texttt{\textbackslash documentclass\{article\}} tells LaTeX
+  what \emph{kind} of document you're building -- \texttt{article} is
+  correct for papers and working papers (\texttt{report} and
+  \texttt{book} exist for longer documents). The options in
+  \texttt{[...]} set font size and paper size. Each
+  \texttt{\textbackslash usepackage\{...\}} loads one extra tool --
+  almost everything useful in LaTeX (math, images, colors, citations)
+  comes from a package, not the core language. This code has no
+  visible output by itself -- it configures everything that follows.}
+\end{frame}
+
+\begin{frame}[fragile]{The Title Block}
+  \begin{lstlisting}
+\title{The Optimal Health-Investment Share}
+\author{Atikur Rahman \\ White Globe Initiative}
+\date{\today}
+
+\begin{document}
+\maketitle
+  \end{lstlisting}
+  \begin{outputbox}
+    \begin{center}
+      \normalsize\bfseries The Optimal Health-Investment Share\\[4pt]
+      \small\normalfont Atikur Rahman\\ White Globe Initiative\\[2pt]
+      \today
+    \end{center}
+  \end{outputbox}
+  \whybox{\texttt{\textbackslash title}, \texttt{\textbackslash
+  author}, and \texttt{\textbackslash date} are declared in the
+  preamble -- they just \emph{store} the information. Nothing is drawn
+  until \texttt{\textbackslash maketitle} is called inside the body,
+  which is what actually renders the centered title block you see
+  above. \texttt{\textbackslash today} auto-inserts the compile date.}
+\end{frame}
+
+\section{Structuring Your Paper}
+
+\begin{frame}[fragile]{Sections and Subsections}
+  \begin{lstlisting}
+\section{Introduction}
+\subsection{Motivation}
+
+\section{Data and Methodology}
+  \end{lstlisting}
+  \begin{outputbox}
+    \small
+    \textbf{1\quad Introduction}\\[2pt]
+    \hspace{10pt}\textbf{1.1\quad Motivation}\\[6pt]
+    \textbf{2\quad Data and Methodology}
+  \end{outputbox}
+  \whybox{LaTeX \textbf{auto-numbers} every section and subsection in
+  order -- notice how \texttt{Introduction} became ``1'' and
+  \texttt{Motivation} became ``1.1'' with no numbers typed anywhere in
+  the code. Insert or delete a section later and everything renumbers
+  automatically. This structure also powers the table of contents and
+  cross-referencing you'll use from Day 4 onward.}
+\end{frame}
+
+\begin{frame}[fragile]{Paragraphs and Line Breaks}
+  \begin{lstlisting}
+This is one paragraph. LaTeX ignores
+single line breaks in your source code.
+
+A blank line starts a new paragraph.
+  \end{lstlisting}
+  \begin{outputbox}
+    \small This is one paragraph. LaTeX ignores single line breaks in
+    your source code.\\[6pt]
+    A blank line starts a new paragraph.
+  \end{outputbox}
+  \whybox{Notice the source has a line break after ``code'' but the
+  output reads as one continuous sentence -- LaTeX treats a single
+  line break as just a space. Only a truly \textbf{blank line} in your
+  source starts a new paragraph (with the usual first-line indent). To
+  force a line break \emph{without} starting a new paragraph, use
+  \texttt{\textbackslash\textbackslash} instead.}
+\end{frame}
+
+\section{Text Formatting}
+
+\begin{frame}[fragile]{Bold, Italics, and Comments}
+  \begin{lstlisting}
+This finding is \textbf{statistically significant}
+at the \textit{5\% level}. % not the 10% level
+
+Growth was \underline{negative} in 2020.
+  \end{lstlisting}
+  \begin{outputbox}
+    \small This finding is \textbf{statistically significant} at the
+    \textit{5\% level}.\\[4pt]
+    Growth was \underline{negative} in 2020.
+  \end{outputbox}
+  \whybox{\texttt{\textbackslash textbf\{...\}} bolds, \texttt{
+  \textbackslash textit\{...\}} italicizes, \texttt{\textbackslash
+  underline\{...\}} underlines (rare in print economics papers -- use
+  sparingly). The \texttt{\%} comment and everything after it on that
+  line \textbf{never appears in the output} -- it's a note to yourself
+  or a co-author. Special characters (\texttt{\% \$ \& \# \_}) need a
+  backslash when you mean them literally, since LaTeX normally reads
+  them as commands.}
+\end{frame}
+
+\section{Reading Compile Errors}
+
+\begin{frame}[fragile]{Your First Compile Errors}
+  \begin{lstlisting}
+\textb{Significant results}
+  \end{lstlisting}
+  \begin{outputbox}
+    \scriptsize\ttfamily
+    ! Undefined control sequence.\\
+    l.12 \textbackslash textb\{Significant results\}\\[4pt]
+    \normalfont\normalsize No PDF is produced until this is fixed.
+  \end{outputbox}
+  \whybox{This is a typo: \texttt{\textbackslash textb} isn't a real
+  command (it should be \texttt{\textbackslash textbf}). LaTeX stops
+  and reports the exact line number -- in Overleaf this line is
+  underlined in red, and clicking it jumps you straight there. The two
+  other errors you'll meet constantly: \textit{Missing \$ inserted}
+  (a math symbol used outside math mode -- fixed properly on Day 2) and
+  a mismatched \texttt{\textbackslash begin}/\texttt{\textbackslash
+  end} pair (an environment opened but never closed).}
+\end{frame}
+
+\section{Practice}
+
+\begin{frame}{Hands-on Exercise}
+  \begin{exercisebox}
+    In a new Overleaf project, recreate the \textbf{title page and
+    abstract} of a real, published economics paper:
+    \begin{enumerate}
+      \item Title, author, and date using \texttt{\textbackslash title},
+        \texttt{\textbackslash author}, \texttt{\textbackslash date},
+        \texttt{\textbackslash maketitle}.
+      \item An \texttt{Abstract} section with one paragraph of body text.
+      \item A first \texttt{\textbackslash section\{Introduction\}}
+        heading.
+      \item Bold at least one key term and italicize one phrase.
+    \end{enumerate}
+    Compile at least \textbf{five times}, intentionally breaking and
+    fixing something each time (misspell a command, delete a brace,
+    forget \texttt{\%}) -- and read what the resulting error says
+    before you fix it.
+  \end{exercisebox}
+\end{frame}
+
+\begin{frame}{Homework Before Day 2}
+  \begin{homeworkbox}
+    Pick the article you will rebuild all week (your own draft is
+    ideal). Retype just the \textbf{introduction paragraph} into your
+    Overleaf project -- no math or tables yet, those start tomorrow.
+  \end{homeworkbox}
+  \vspace{10pt}
+  \small\textbf{Resources for today:}
+  \begin{itemize}\small
+    \item Overleaf -- ``Learn LaTeX in 30 Minutes''
+    \item Overleaf -- ``Creating your first document in LaTeX''
+    \item Overleaf -- ``Paragraphs and new lines'' / ``Bold, italics
+      and underlining''
+    \item Wikibooks LaTeX -- Getting Started chapter
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Coming Up: Day 2}
+  \Large
+  \centering
+  Math Mode for Economists \\[6pt]
+  \normalsize
+  Equations, subscripts, Greek letters, summations, and matrices --
+  typesetting the models you actually work with.
+\end{frame}
+
+\begin{frame}[plain]
+  \begin{center}
+    \vspace{35pt}
+    {\Large\bfseries Thank You}\\[10pt]
+    {\large From \texttt{\textbackslash begin} to \texttt{\textbackslash end}: The Complete LaTeX Guide}\\[4pt]
+    Day 1 of 7 --- Setup \& Document Anatomy\\[20pt]
+    \rule{0.5\textwidth}{0.4pt}\\[10pt]
+    Atikur Rahman \\
+    White Globe Initiative \\[2pt]
+    \texttt{atik@whiteglobeinitiative.org} \\
+    \texttt{contact@whiteglobeinitiative.org}
+  \end{center}
+\end{frame}
+
+\end{document}

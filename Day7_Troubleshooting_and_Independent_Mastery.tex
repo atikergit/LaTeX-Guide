@@ -1,0 +1,256 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codekw}{RGB}{0,0,180}
+\lstdefinestyle{latexcode}{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{codekw}\bfseries,
+  commentstyle=\color{gray},
+  frame=single,
+  rulecolor=\color{gray!40},
+  breaklines=true,
+  showstringspaces=false,
+  xleftmargin=4pt,
+  xrightmargin=4pt,
+}
+\lstset{style=latexcode}
+
+\newtcolorbox{outputbox}{
+  colback=white, colframe=black!65, boxrule=0.5pt, arc=1pt,
+  left=8pt, right=8pt, top=5pt, bottom=4pt,
+  title=\textsc{Compiled Output}, fonttitle=\bfseries\scriptsize,
+  coltitle=white, colbacktitle=black!65
+}
+\newcommand{\whybox}[1]{%
+  \vspace{2pt}
+  {\scriptsize\raggedright\textcolor{red!55!black}{\textbf{Why \& What:}}~#1\par}
+}
+
+\newtcolorbox{exercisebox}{
+  colback=orange!8, colframe=orange!70!black, boxrule=0.6pt,
+  arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  title={Hands-on Exercise}, fonttitle=\bfseries, coltitle=white,
+  colbacktitle=orange!70!black
+}
+\newtcolorbox{homeworkbox}{
+  colback=blue!6, colframe=blue!50!black, boxrule=0.6pt,
+  arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  title={Homework}, fonttitle=\bfseries, coltitle=white,
+  colbacktitle=blue!50!black
+}
+
+\title[\texttt{\textbackslash begin} to \texttt{\textbackslash end}]{From \texttt{\textbackslash begin} to \texttt{\textbackslash end}}
+\subtitle{The Complete LaTeX Guide \\[2pt] \normalsize Day 7 of 7: Troubleshooting, Polish \& Independent Mastery}
+\author[A.\ Rahman]{Atikur Rahman}
+\institute[White Globe Initiative]{White Globe Initiative}
+
+\setbeamertemplate{footline}{
+  \leavevmode
+  \hbox{%
+  \begin{beamercolorbox}[wd=.38\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=1em]{author in head/foot}%
+    \usebeamerfont{author in head/foot}White Globe Initiative
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.42\paperwidth,ht=2.5ex,dp=1.125ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}From \texttt{\textbackslash begin} to \texttt{\textbackslash end} --- Day 7
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.5ex,dp=1.125ex,right,rightskip=1em]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertframenumber{} / \inserttotalframenumber
+  \end{beamercolorbox}}%
+  \vskip0pt
+}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \begin{center}
+    \vspace{4pt}
+    {\Huge\bfseries\usebeamercolor[fg]{title}From \texttt{\textbackslash begin} to \texttt{\textbackslash end}}\\[6pt]
+    {\Large\itshape The Complete LaTeX Guide}\\[18pt]
+    {\large\bfseries Day 7 of 7 --- Troubleshooting, Polish \& Independent Mastery}\\[22pt]
+    \rule{0.7\textwidth}{0.4pt}\\[14pt]
+    \begin{tabular}{rl}
+      \textbf{Instructor:}       & Atikur Rahman \\[3pt]
+      \textbf{Organized by:}     & White Globe Initiative \\[3pt]
+      \textbf{Instructor Email:} & \texttt{atik@whiteglobeinitiative.org} \\[3pt]
+      \textbf{General Contact:}  & \texttt{contact@whiteglobeinitiative.org} \\[3pt]
+      \textbf{Format:}           & 7-Day Intensive Course \\[3pt]
+      \textbf{Session:}          & Day 7 of 7 \\
+    \end{tabular}\\[18pt]
+    \rule{0.7\textwidth}{0.4pt}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Today's Agenda}
+  \tableofcontents
+\end{frame}
+
+\section{Recap \& Today's Goal}
+
+\begin{frame}{Quick Recap: Day 6}
+  \small
+  Yesterday: browsing and adapting a real journal template, filling in
+  title/author/abstract/JEL/keyword metadata, and migrating a full
+  draft into a template end-to-end.
+  \vspace{6pt}
+
+  \textbf{Today's goal:} not more syntax -- \textbf{self-sufficiency}.
+  You should leave able to diagnose your own errors without a tutor in
+  the room.
+\end{frame}
+
+\section{Reading Compile Errors Like a Pro}
+
+\begin{frame}[fragile]{The Big Three Errors, Revisited}
+  \begin{lstlisting}
+\textb{Significant results}     % typo'd command
+The share of GDP is  15%.       % unescaped percent sign
+\begin{itemize} ... \end{document}
+  \end{lstlisting}
+  \begin{outputbox}
+    \scriptsize\ttfamily
+    ! Undefined control sequence. \\
+    ! Missing \$ inserted. \\
+    ! LaTeX Error: \textbackslash begin\{itemize\} ended by
+    \textbackslash end\{document\}.
+  \end{outputbox}
+  \whybox{\textbf{Undefined control sequence}: almost always a typo'd
+  command name -- check spelling and that the defining package is
+  loaded. \textbf{Missing \$ inserted}: a math symbol (or an
+  unescaped \texttt{\%}/\texttt{\&}) used outside math mode.
+  \textbf{Mismatched begin/end}: count your \texttt{\textbackslash
+  begin}s against your \texttt{\textbackslash end}s -- the reported
+  error line is often \emph{after} the real mistake, not at it.}
+\end{frame}
+
+\section{Search Strategy: TeX StackExchange}
+
+\begin{frame}{Finding the Fix in Under a Minute}
+  \small
+  \begin{enumerate}
+    \item Copy the \textbf{exact} error message (drop file-specific details like line numbers).
+    \item Search \texttt{tex.stackexchange.com} with that text plus the package name if relevant (e.g.\ ``natbib undefined control sequence'').
+    \item Prefer answers with the \textbf{green checkmark} and a high vote count.
+    \item If nothing matches, search for the \emph{symptom} instead (``booktabs table too wide'') rather than the error text.
+  \end{enumerate}
+  \vspace{4pt}
+  Nearly every error you will ever see has already been asked and
+  answered there -- searching well is a core LaTeX skill, not a
+  shortcut.
+\end{frame}
+
+\section{Final Proofreading Pass}
+
+\begin{frame}{The Pre-Submission Proofreading Checklist}
+  \small
+  \begin{itemize}
+    \item \textbf{Spacing}: no leftover double blank lines causing odd
+      paragraph breaks; consistent spacing around equations.
+    \item \textbf{Orphaned headings}: a \texttt{\textbackslash section}
+      stranded alone at the bottom of a page.
+    \item \textbf{Table/figure placement}: nothing floated to a
+      strange spot or overlapping text.
+    \item \textbf{Citation style consistency}: \texttt{citet}/\texttt{citep} used correctly and consistently throughout.
+    \item \textbf{All \texttt{??} resolved}: search your PDF for ``??''
+      -- it means a \texttt{\textbackslash ref} or \texttt{\textbackslash cite} didn't resolve.
+  \end{itemize}
+\end{frame}
+
+\section{Exporting the Final PDF}
+
+\begin{frame}{Pre-Submission Checklist}
+  \small
+  \begin{itemize}
+    \item Compile \textbf{twice} (or more) so all cross-references and
+      the table of contents settle correctly.
+    \item Confirm the PDF opens cleanly and page count matches the
+      journal's length limit.
+    \item Check the title, author, affiliation, abstract, and JEL
+      codes match the journal's required format exactly.
+    \item Download the compiled PDF from Overleaf (\texttt{Menu} $\rightarrow$ \texttt{Download PDF}) for final submission.
+  \end{itemize}
+\end{frame}
+
+\section{Where to Go Next}
+
+\begin{frame}{Beyond This Course}
+  \small
+  \begin{itemize}
+    \item \textbf{``The Not So Short Introduction to LaTeX2e''} (lshort,
+      free PDF) -- your ongoing reference manual once the basics are fluent.
+    \item The wider \textbf{Overleaf documentation library}
+      (\texttt{overleaf.com/learn}) -- covers everything not reached
+      this week (posters, presentations with Beamer, TikZ diagrams, and more).
+    \item \textbf{Wikibooks LaTeX} -- a free, community-maintained companion textbook.
+    \item \textbf{TeX StackExchange} -- your debugging partner for as
+      long as you use LaTeX.
+  \end{itemize}
+\end{frame}
+
+\section{Practice}
+
+\begin{frame}{Hands-on Exercise}
+  \begin{exercisebox}
+    Your instructor will deliberately inject 3--5 common errors into
+    your document (a missing brace, an unescaped \texttt{\%}, a
+    mismatched \texttt{\textbackslash begin}/\texttt{\textbackslash end}).
+    Diagnose and fix each one \textbf{unaided}, using only the Overleaf
+    ``Errors'' page and TeX StackExchange.
+  \end{exercisebox}
+\end{frame}
+
+\begin{frame}{Final Deliverable}
+  \begin{homeworkbox}
+    Produce the final, submission-ready PDF of the paper you have
+    built across the week, and complete a full self-review against
+    your Day 6 template's requirements.
+  \end{homeworkbox}
+  \vspace{10pt}
+  \small\textbf{Resources for today:}
+  \begin{itemize}\small
+    \item Overleaf -- ``Errors''
+    \item TeX StackExchange -- \texttt{tex.stackexchange.com}
+    \item Wikibooks LaTeX -- Errors and Fixes / Tips and Tricks chapters
+    \item ``The Not So Short Introduction to LaTeX2e'' (lshort, free PDF)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Course Complete}
+  \Large
+  \centering
+  From \texttt{\textbackslash begin} to \texttt{\textbackslash end} \\[6pt]
+  \normalsize
+  Seven days ago you had zero LaTeX experience. Today you can write,
+  format, cite, and submit a complete economics paper -- independently.
+  \\[10pt]
+  \textbf{Congratulations.}
+\end{frame}
+
+\begin{frame}[plain]
+  \begin{center}
+    \vspace{35pt}
+    {\Large\bfseries Thank You}\\[10pt]
+    {\large From \texttt{\textbackslash begin} to \texttt{\textbackslash end}: The Complete LaTeX Guide}\\[4pt]
+    Day 7 of 7 --- Troubleshooting, Polish \& Independent Mastery\\[20pt]
+    \rule{0.5\textwidth}{0.4pt}\\[10pt]
+    Atikur Rahman \\
+    White Globe Initiative \\[2pt]
+    \texttt{atik@whiteglobeinitiative.org} \\
+    \texttt{contact@whiteglobeinitiative.org}
+  \end{center}
+\end{frame}
+
+\end{document}

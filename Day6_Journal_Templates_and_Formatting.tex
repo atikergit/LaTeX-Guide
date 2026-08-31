@@ -1,0 +1,246 @@
+\documentclass[11pt,aspectratio=169,table]{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codekw}{RGB}{0,0,180}
+\lstdefinestyle{latexcode}{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{codekw}\bfseries,
+  commentstyle=\color{gray},
+  frame=single,
+  rulecolor=\color{gray!40},
+  breaklines=true,
+  showstringspaces=false,
+  xleftmargin=4pt,
+  xrightmargin=4pt,
+}
+\lstset{style=latexcode}
+
+\newtcolorbox{outputbox}{
+  colback=white, colframe=black!65, boxrule=0.5pt, arc=1pt,
+  left=8pt, right=8pt, top=5pt, bottom=4pt,
+  title=\textsc{Compiled Output}, fonttitle=\bfseries\scriptsize,
+  coltitle=white, colbacktitle=black!65
+}
+\newcommand{\whybox}[1]{%
+  \vspace{2pt}
+  {\scriptsize\raggedright\textcolor{red!55!black}{\textbf{Why \& What:}}~#1\par}
+}
+
+\newtcolorbox{exercisebox}{
+  colback=orange!8, colframe=orange!70!black, boxrule=0.6pt,
+  arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  title={Hands-on Exercise}, fonttitle=\bfseries, coltitle=white,
+  colbacktitle=orange!70!black
+}
+\newtcolorbox{homeworkbox}{
+  colback=blue!6, colframe=blue!50!black, boxrule=0.6pt,
+  arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  title={Homework}, fonttitle=\bfseries, coltitle=white,
+  colbacktitle=blue!50!black
+}
+
+\title[\texttt{\textbackslash begin} to \texttt{\textbackslash end}]{From \texttt{\textbackslash begin} to \texttt{\textbackslash end}}
+\subtitle{The Complete LaTeX Guide \\[2pt] \normalsize Day 6 of 7: Journal Templates \& Professional Formatting}
+\author[A.\ Rahman]{Atikur Rahman}
+\institute[White Globe Initiative]{White Globe Initiative}
+
+\setbeamertemplate{footline}{
+  \leavevmode
+  \hbox{%
+  \begin{beamercolorbox}[wd=.38\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=1em]{author in head/foot}%
+    \usebeamerfont{author in head/foot}White Globe Initiative
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.42\paperwidth,ht=2.5ex,dp=1.125ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}From \texttt{\textbackslash begin} to \texttt{\textbackslash end} --- Day 6
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.5ex,dp=1.125ex,right,rightskip=1em]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertframenumber{} / \inserttotalframenumber
+  \end{beamercolorbox}}%
+  \vskip0pt
+}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \begin{center}
+    \vspace{4pt}
+    {\Huge\bfseries\usebeamercolor[fg]{title}From \texttt{\textbackslash begin} to \texttt{\textbackslash end}}\\[6pt]
+    {\Large\itshape The Complete LaTeX Guide}\\[18pt]
+    {\large\bfseries Day 6 of 7 --- Journal Templates \& Professional Formatting}\\[22pt]
+    \rule{0.7\textwidth}{0.4pt}\\[14pt]
+    \begin{tabular}{rl}
+      \textbf{Instructor:}       & Atikur Rahman \\[3pt]
+      \textbf{Organized by:}     & White Globe Initiative \\[3pt]
+      \textbf{Instructor Email:} & \texttt{atik@whiteglobeinitiative.org} \\[3pt]
+      \textbf{General Contact:}  & \texttt{contact@whiteglobeinitiative.org} \\[3pt]
+      \textbf{Format:}           & 7-Day Intensive Course \\[3pt]
+      \textbf{Session:}          & Day 6 of 7 \\
+    \end{tabular}\\[18pt]
+    \rule{0.7\textwidth}{0.4pt}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Today's Agenda}
+  \tableofcontents
+\end{frame}
+
+\section{Recap \& Today's Goal}
+
+\begin{frame}{Quick Recap: Day 5}
+  \small
+  Yesterday: table of contents, footnotes, \texttt{hyperref} for
+  clickable links, splitting a long paper across files with
+  \texttt{\textbackslash input}, and page numbering/headers.
+  \vspace{6pt}
+
+  \textbf{Today's goal:} you ultimately need to submit to a specific
+  journal or working-paper series. Leave today fluent in
+  \textbf{adapting an existing template} rather than building
+  formatting from scratch.
+\end{frame}
+
+\section{The Overleaf Template Gallery}
+
+\begin{frame}{Browsing the Template Gallery}
+  \small
+  \texttt{overleaf.com/latex/templates} -- filter by \textbf{``Academic
+  Journal''} to see hundreds of ready-made options. Economics-relevant
+  choices: \textbf{AEA-style templates} for American Economic
+  Association journals (AER, AEJ series); \textbf{Elsevier's
+  \texttt{elsarticle} class}, used by many economics and finance
+  journals (e.g.\ \emph{Journal of Development Economics}); and
+  generic working-paper templates for institutions like NBER, IMF, or
+  your own university series. Every template opens directly in
+  Overleaf, pre-loaded with the correct class, packages, and
+  bibliography style -- you never assemble one from scratch.
+\end{frame}
+
+\section{Adapting a Template}
+
+\begin{frame}[fragile]{Filling In the Template's Metadata}
+  \begin{lstlisting}
+\title{Remittances and Consumption Smoothing}
+\author{Jane Economist}
+\begin{abstract}
+This paper examines remittance inflows...
+\end{abstract}
+\JEL{F24, D14, O15}
+\keywords{remittances, migration}
+  \end{lstlisting}
+  \begin{outputbox}
+    \scriptsize
+    \textbf{Remittances and Consumption Smoothing} --- Jane Economist\\[3pt]
+    \textit{Abstract.} This paper examines remittance inflows...\\[3pt]
+    \textit{JEL:} F24, D14, O15 \quad \textit{Keywords:} remittances, migration
+  \end{outputbox}
+  \whybox{Journal templates add fields beyond plain \texttt{article}:
+  \textbf{abstract}, \textbf{JEL codes}, \textbf{keywords} -- rendered
+  automatically as shown above. Command names vary by template --
+  always check its own comments first. JEL codes are
+  economics-specific and expected by nearly every journal.}
+\end{frame}
+
+\section{Page Size, Margins \& Colour}
+
+\begin{frame}[fragile]{When a Template Doesn't Match House Style}
+  \begin{lstlisting}
+\rowcolor{gray!10}
+Bangladesh & 6.0\% & 5.4\% \\
+India & 7.2\% & 5.1\% \\
+  \end{lstlisting}
+  \begin{outputbox}
+    \small
+    \rowcolors{1}{gray!12}{white}
+    \begin{tabular}{lcc}
+      Bangladesh & 6.0\% & 5.4\% \\
+      India & 7.2\% & 5.1\% \\
+    \end{tabular}
+  \end{outputbox}
+  \whybox{Most journal templates already set page size and margins --
+  avoid overriding them unless a submission guideline explicitly says
+  to. Colour should be used sparingly and only where the journal
+  allows it: shading alternating table rows (as above, via the
+  \texttt{xcolor} \texttt{table} option) is one of the few colour uses
+  widely accepted in print. Print-only journals often require
+  greyscale -- when in doubt, the journal's ``Guide for Authors''
+  overrides anything covered today.}
+\end{frame}
+
+\section{Migrating a Word Draft}
+
+\begin{frame}{Converting an Existing Word Draft to LaTeX}
+  \small
+  \begin{enumerate}
+    \item Start from the chosen journal template -- don't build from a blank file.
+    \item Move text section by section (Introduction, Methodology, \dots), matching your Day 5 structure.
+    \item Rebuild equations natively (Day 2) rather than pasting equation-editor images.
+    \item Rebuild tables with \texttt{tabular}/\texttt{booktabs} (Day 3) -- do not paste Word tables as images.
+    \item Re-attach your \texttt{.bib} file and citations (Day 4) last, once the text is in place.
+  \end{enumerate}
+\end{frame}
+
+\section{Practice}
+
+\begin{frame}{Hands-on Exercise}
+  \begin{exercisebox}
+    Choose one real economics journal template from the Overleaf
+    gallery and migrate your \textbf{entire} running paper draft into
+    it end-to-end: text, equations, tables, citations, and document
+    structure all in one file (or split via \texttt{\textbackslash input} as in Day 5).
+  \end{exercisebox}
+\end{frame}
+
+\begin{frame}{Homework Before Day 7}
+  \begin{homeworkbox}
+    Proofread the migrated document for formatting breaks: overflowing
+    tables, misplaced figures, citation style mismatches, or JEL/keyword
+    fields left as placeholder text. List everything you find -- you'll
+    fix it tomorrow.
+  \end{homeworkbox}
+  \vspace{10pt}
+  \small\textbf{Resources for today:}
+  \begin{itemize}\small
+    \item Overleaf Template Gallery -- \texttt{overleaf.com/latex/templates} (filter: academic-journal)
+    \item Overleaf -- ``Page size and margins'' / ``Using colours in LaTeX''
+    \item Wikibooks LaTeX -- Customizing chapters
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Coming Up: Day 7}
+  \Large
+  \centering
+  Troubleshooting, Polish \& Independent Mastery \\[6pt]
+  \normalsize
+  Reading errors like a pro, a final proofreading pass, and
+  becoming self-sufficient beyond this course.
+\end{frame}
+
+\begin{frame}[plain]
+  \begin{center}
+    \vspace{35pt}
+    {\Large\bfseries Thank You}\\[10pt]
+    {\large From \texttt{\textbackslash begin} to \texttt{\textbackslash end}: The Complete LaTeX Guide}\\[4pt]
+    Day 6 of 7 --- Journal Templates \& Professional Formatting\\[20pt]
+    \rule{0.5\textwidth}{0.4pt}\\[10pt]
+    Atikur Rahman \\
+    White Globe Initiative \\[2pt]
+    \texttt{atik@whiteglobeinitiative.org} \\
+    \texttt{contact@whiteglobeinitiative.org}
+  \end{center}
+\end{frame}
+
+\end{document}

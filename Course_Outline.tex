@@ -1,0 +1,274 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true, linkcolor=red!55!black, urlcolor=red!55!black, citecolor=red!55!black]{hyperref}
+
+\definecolor{wgired}{RGB}{130,20,20}
+
+\titleformat{\section}{\Large\bfseries\color{wgired}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{wgired}}{\thesubsection}{0.6em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small From \texttt{\textbackslash begin} to \texttt{\textbackslash end}}
+\rhead{\small White Globe Initiative}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\setlist[itemize]{leftmargin=1.4em, itemsep=2pt, topsep=2pt}
+\setlist[enumerate]{leftmargin=1.6em, itemsep=2pt, topsep=2pt}
+\emergencystretch=2em
+
+\begin{document}
+
+% ---------------- Title Page ----------------
+\begin{titlepage}
+  \centering
+  \vspace*{2.5cm}
+  {\Huge\bfseries\color{wgired} From \texttt{\textbackslash begin} to \texttt{\textbackslash end}}\\[10pt]
+  {\Large\itshape The Complete LaTeX Guide}\\[6pt]
+  {\large Course Outline \& Syllabus}\\[40pt]
+
+  \rule{0.6\textwidth}{0.5pt}\\[20pt]
+
+  \begin{tabular}{rl}
+    \textbf{Instructor:}       & Atikur Rahman \\[4pt]
+    \textbf{Organized by:}     & White Globe Initiative \\[4pt]
+    \textbf{Instructor Email:} & \url{atik@whiteglobeinitiative.org} \\[4pt]
+    \textbf{General Contact:}  & \url{contact@whiteglobeinitiative.org} \\[4pt]
+    \textbf{Format:}           & 7-Day Intensive Course \\[4pt]
+    \textbf{Audience:}         & Complete beginners, economics background \\
+  \end{tabular}\\[20pt]
+
+  \rule{0.6\textwidth}{0.5pt}
+
+  \vfill
+  {\small A White Globe Initiative in-house training program.}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ---------------- Course Overview ----------------
+\section{Course Overview}
+
+This course takes a complete beginner from zero LaTeX experience to
+independently writing, formatting, citing, and submitting a
+publication-ready economics paper in seven days.
+
+\textbf{Audience.} Complete beginners with an economics background,
+writing for the purpose of producing publication-quality articles,
+working papers, and reports.
+
+\textbf{Format.} Seven daily sessions of 2--3 hours of instruction
+plus hands-on practice. Each day builds directly on the last, using a
+single running paper draft as the exercise throughout the week.
+
+\textbf{Tooling.} Overleaf (\url{overleaf.com}) -- a free,
+browser-based LaTeX editor. No local installation is required, the
+free tier is sufficient, and it includes a live PDF preview and a
+journal template gallery.
+
+\textbf{Primary references.} Overleaf's ``Learn LaTeX in 30 Minutes,''
+the full Overleaf documentation library (\url{overleaf.com/learn}),
+and the Wikibooks LaTeX manual (\url{en.wikibooks.org/wiki/LaTeX}) --
+used throughout as the topic-by-topic reference set for every day
+below.
+
+\textbf{Teaching style.} Every concept in the daily slide decks is
+taught as a triad: the \textbf{code} you write, the \textbf{compiled
+output} it produces, and a plain-language explanation of \emph{why}
+you write it and \emph{what} it does -- a book-style, example-first
+approach designed for someone who has never opened a \texttt{.tex}
+file before.
+
+\textbf{Outcome.} By Day 7, the trainee independently produces a
+formatted, cited, journal-template-ready economics paper and can
+self-debug common compile errors without assistance.
+
+% ---------------- Week at a Glance ----------------
+\section{Week at a Glance}
+
+\begin{center}
+\begin{tabular}{clp{6cm}}
+  \toprule
+  \textbf{Day} & \textbf{Focus} & \textbf{Key Skill Unlocked} \\
+  \midrule
+  1 & Setup \& Document Anatomy & Compile a working \texttt{.tex} file from scratch \\
+  2 & Math Mode for Economists & Typeset models, equations, and notation \\
+  3 & Tables, Figures \& Regression Output & Publication-quality regression tables \\
+  4 & Citations \& Bibliography & Author-year citations with BibTeX/natbib \\
+  5 & Document Structure \& Long Documents & Organize a full paper across files \\
+  6 & Journal Templates \& Formatting & Submission-ready formatting \\
+  7 & Troubleshooting \& Independent Mastery & Self-debug and finalize the paper \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\newpage
+% ---------------- Daily Curriculum ----------------
+\section{Daily Curriculum}
+
+\subsection*{Day 1: Setup \& Document Anatomy}
+\textbf{Objective.} Get the trainee compiling their first document and
+understanding what LaTeX actually is -- a markup language, not a word
+processor. Zero prior exposure assumed.
+
+\textbf{Topics.} What LaTeX is and isn't; getting started with
+Overleaf; the minimal document (preamble vs.\ body); document class
+and packages; the title block (\texttt{\textbackslash title},
+\texttt{\textbackslash author}, \texttt{\textbackslash maketitle});
+sections and subsections; paragraphs and line breaks; bold, italics,
+and comments; reading your first compile errors.
+
+\textbf{Exercise.} Recreate the title page and abstract of a real,
+published economics paper, compiling at least five times and
+intentionally breaking and fixing something each time.
+
+\textbf{Homework.} Retype the introduction paragraph of the paper you
+will rebuild all week into a new Overleaf project.
+
+\vspace{6pt}
+\subsection*{Day 2: Math Mode for Economists}
+\textbf{Objective.} Typeset models, regression specifications, and
+notation with full precision -- no equation editor required.
+
+\textbf{Topics.} Inline vs.\ display math; the \texttt{amsmath}
+package; subscripts and superscripts; Greek letters and operators
+(sums, products, limits, argmax); fractions and binomials; multi-line
+derivations with \texttt{align}; matrices (correlation matrices,
+game-theory payoff matrices); labeling and referencing equations.
+
+\textbf{Exercise.} Typeset a Cobb-Douglas production function, a
+linear regression equation with a subscripted error term, and a
+$2\times2$ payoff matrix.
+
+\textbf{Homework.} Add the full set of equations from the running
+paper draft, labeling every numbered equation.
+
+\vspace{6pt}
+\subsection*{Day 3: Tables, Figures \& Regression Output}
+\textbf{Objective.} Build a repeatable workflow for turning regression
+output and charts into clean, journal-style tables and figures.
+
+\textbf{Topics.} The \texttt{tabular} environment; \texttt{booktabs}
+rules for the economics-journal look; \texttt{multicolumn}/\texttt{
+cmidrule} for grouped regression headers; a complete worked regression
+table; the \texttt{figure} environment and \texttt{includegraphics};
+float placement; the \url{tablesgenerator.com} workflow for Excel/Stata
+output.
+
+\textbf{Exercise.} Reproduce a small regression output table in
+booktabs style using \url{tablesgenerator.com} as a first pass, then
+hand-edit for captions and labels.
+
+\textbf{Homework.} Insert all tables and figures from the running
+paper draft, with proper captions and labels.
+
+\vspace{6pt}
+\subsection*{Day 4: Citations \& Bibliography}
+\textbf{Objective.} Build a working BibTeX pipeline reusable for every
+future paper, practicing on real published research.
+
+\textbf{Topics.} BibTeX basics and the \texttt{.bib} file; \texttt{
+natbib} and author-year citation styles common in economics;
+\texttt{\textbackslash citet} vs.\ \texttt{\textbackslash citep};
+\texttt{biblatex} as an alternative; sourcing \texttt{.bib} entries
+from Google Scholar, reference managers, and journal websites;
+cross-referencing sections, equations, tables, and figures.
+
+\textbf{Exercise.} Build a five-entry \texttt{.bib} file from real
+papers listed at \url{whiteglobeinitiative.org/published-papers}
+(or your own field's literature) and write a short mock literature
+review citing all five.
+
+\textbf{Homework.} Build the real bibliography for the running paper
+draft and cite throughout the introduction/literature review.
+
+\vspace{6pt}
+\subsection*{Day 5: Document Structure \& Long-Document Tools}
+\textbf{Objective.} Move from a single short file to the structure a
+full paper or thesis-length document needs.
+
+\textbf{Topics.} Table of contents; footnotes; the \texttt{hyperref}
+package for clickable cross-references; splitting a long paper across
+files with \texttt{\textbackslash input}; page numbering, headers, and
+footers.
+
+\textbf{Exercise.} Split the running paper draft into separate files
+and assemble them into a single \texttt{main.tex} using \texttt{
+\textbackslash input}, adding a table of contents and at least one
+footnote.
+
+\textbf{Homework.} Load \texttt{hyperref} and confirm every
+cross-reference resolves correctly.
+
+\vspace{6pt}
+\subsection*{Day 6: Journal Templates \& Professional Formatting}
+\textbf{Objective.} Become fluent in adapting an existing journal
+template rather than building formatting from scratch.
+
+\textbf{Topics.} Browsing the Overleaf template gallery (AEA-style,
+Elsevier's \texttt{elsarticle}, working-paper templates); filling in
+title/author/abstract/JEL/keyword metadata; page size and margins;
+using colour sparingly; converting an existing Word draft to LaTeX.
+
+\textbf{Exercise.} Migrate the entire running paper draft into one
+real economics journal template, end-to-end.
+
+\textbf{Homework.} Proofread the migrated document for formatting
+breaks and list everything found.
+
+\vspace{6pt}
+\subsection*{Day 7: Troubleshooting, Polish \& Independent Mastery}
+\textbf{Objective.} Leave able to diagnose errors and finish a paper
+without a tutor in the room.
+
+\textbf{Topics.} Reading compile errors like a pro; search strategy
+for TeX StackExchange; the pre-submission proofreading checklist;
+exporting the final PDF; where to go next (lshort, the wider Overleaf
+library).
+
+\textbf{Exercise.} The instructor injects 3--5 common errors into the
+trainee's document; the trainee diagnoses and fixes each one unaided.
+
+\textbf{Final deliverable.} A submission-ready PDF of the paper built
+across the week, self-reviewed against the Day 6 template's
+requirements.
+
+\newpage
+% ---------------- Master Resource List ----------------
+\section{Master Resource List}
+
+\begin{center}
+\begin{tabular}{p{7cm}p{7.5cm}}
+  \toprule
+  \textbf{Resource} & \textbf{Best Used For} \\
+  \midrule
+  Overleaf -- Learn LaTeX in 30 Minutes & Day 1 crash course; first document, structure, math preview \\
+  Overleaf Documentation (\url{overleaf.com/learn}) & Topic-by-topic reference for every day of the course \\
+  Wikibooks LaTeX (\url{en.wikibooks.org/wiki/LaTeX}) & Free companion textbook; deeper explanations and exercises \\
+  tablesgenerator.com & Converting Excel/Stata output into LaTeX table code (Day 3) \\
+  whiteglobeinitiative.org/published-papers & Real published-paper examples for citation practice (Day 4) \\
+  Overleaf Template Gallery (\url{overleaf.com/latex/templates}) & Economics/AEA/Elsevier journal templates (Day 6) \\
+  TeX StackExchange (\url{tex.stackexchange.com}) & Debugging real compile errors (Day 7 and beyond) \\
+  ``The Not So Short Introduction to LaTeX2e'' (lshort, free PDF) & Reference manual once basics are fluent \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{20pt}
+\begin{center}
+\small
+White Globe Initiative --- Atikur Rahman\\
+\url{atik@whiteglobeinitiative.org} \quad\textbullet\quad \url{contact@whiteglobeinitiative.org}
+\end{center}
+
+\end{document}

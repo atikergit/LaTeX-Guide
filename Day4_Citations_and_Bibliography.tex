@@ -1,0 +1,300 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codekw}{RGB}{0,0,180}
+\lstdefinestyle{latexcode}{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{codekw}\bfseries,
+  commentstyle=\color{gray},
+  frame=single,
+  rulecolor=\color{gray!40},
+  breaklines=true,
+  showstringspaces=false,
+  xleftmargin=4pt,
+  xrightmargin=4pt,
+}
+\lstset{style=latexcode}
+
+\newtcolorbox{outputbox}{
+  colback=white, colframe=black!65, boxrule=0.5pt, arc=1pt,
+  left=8pt, right=8pt, top=5pt, bottom=4pt,
+  title=\textsc{Compiled Output}, fonttitle=\bfseries\scriptsize,
+  coltitle=white, colbacktitle=black!65
+}
+\newcommand{\whybox}[1]{%
+  \vspace{2pt}
+  {\scriptsize\raggedright\textcolor{red!55!black}{\textbf{Why \& What:}}~#1\par}
+}
+
+\newtcolorbox{exercisebox}{
+  colback=orange!8, colframe=orange!70!black, boxrule=0.6pt,
+  arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  title={Hands-on Exercise}, fonttitle=\bfseries, coltitle=white,
+  colbacktitle=orange!70!black
+}
+\newtcolorbox{homeworkbox}{
+  colback=blue!6, colframe=blue!50!black, boxrule=0.6pt,
+  arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  title={Homework}, fonttitle=\bfseries, coltitle=white,
+  colbacktitle=blue!50!black
+}
+
+\title[\texttt{\textbackslash begin} to \texttt{\textbackslash end}]{From \texttt{\textbackslash begin} to \texttt{\textbackslash end}}
+\subtitle{The Complete LaTeX Guide \\[2pt] \normalsize Day 4 of 7: Citations \& Bibliography}
+\author[A.\ Rahman]{Atikur Rahman}
+\institute[White Globe Initiative]{White Globe Initiative}
+
+\setbeamertemplate{footline}{
+  \leavevmode
+  \hbox{%
+  \begin{beamercolorbox}[wd=.38\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=1em]{author in head/foot}%
+    \usebeamerfont{author in head/foot}White Globe Initiative
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.42\paperwidth,ht=2.5ex,dp=1.125ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}From \texttt{\textbackslash begin} to \texttt{\textbackslash end} --- Day 4
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.5ex,dp=1.125ex,right,rightskip=1em]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertframenumber{} / \inserttotalframenumber
+  \end{beamercolorbox}}%
+  \vskip0pt
+}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \begin{center}
+    \vspace{4pt}
+    {\Huge\bfseries\usebeamercolor[fg]{title}From \texttt{\textbackslash begin} to \texttt{\textbackslash end}}\\[6pt]
+    {\Large\itshape The Complete LaTeX Guide}\\[18pt]
+    {\large\bfseries Day 4 of 7 --- Citations \& Bibliography}\\[22pt]
+    \rule{0.7\textwidth}{0.4pt}\\[14pt]
+    \begin{tabular}{rl}
+      \textbf{Instructor:}       & Atikur Rahman \\[3pt]
+      \textbf{Organized by:}     & White Globe Initiative \\[3pt]
+      \textbf{Instructor Email:} & \texttt{atik@whiteglobeinitiative.org} \\[3pt]
+      \textbf{General Contact:}  & \texttt{contact@whiteglobeinitiative.org} \\[3pt]
+      \textbf{Format:}           & 7-Day Intensive Course \\[3pt]
+      \textbf{Session:}          & Day 4 of 7 \\
+    \end{tabular}\\[18pt]
+    \rule{0.7\textwidth}{0.4pt}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Today's Agenda}
+  \tableofcontents
+\end{frame}
+
+\section{Recap \& Today's Goal}
+
+\begin{frame}{Quick Recap: Day 3}
+  \small
+  Yesterday: \texttt{tabular} + \texttt{booktabs} for
+  publication-quality tables, \texttt{multicolumn}/\texttt{cmidrule}
+  for grouped regression headers, figures with
+  \texttt{includegraphics}, float placement, and the
+  tablesgenerator.com workflow.
+  \vspace{6pt}
+
+  \textbf{Today's goal:} economics journals almost universally use
+  author-year citation style. Leave today with a working BibTeX
+  pipeline you can reuse for every future paper -- we'll practice on
+  real published research from White Globe Initiative's own team.
+\end{frame}
+
+\section{BibTeX Basics}
+
+\begin{frame}[fragile]{The .bib File}
+  \begin{lstlisting}
+@article{nandi2022financial,
+  author  = {Nandi, Biplob Kumar and Hasan, Gazi Quamrul
+             and Kabir, Mohammad Habibullah},
+  title   = {A Tale of the Financial Inclusion-Growth Nexus},
+  journal = {Journal of Financial Economic Policy},
+  year    = {2022},
+  volume  = {14},
+  number  = {3},
+  pages   = {381--402}
+}
+  \end{lstlisting}
+  \whybox{A separate \texttt{references.bib} file holds all your
+  sources -- one \texttt{@}-entry per source, with \textbf{no visible
+  output by itself}: it's raw data, rendered only when you cite it
+  (next slides). Entry types: \texttt{@article}, \texttt{@book},
+  \texttt{@incollection}, \texttt{@techreport}. The key
+  (\texttt{nandi2022financial}) is what you'll type to cite this
+  source in your text -- pick something memorable: author + year + one
+  keyword.}
+\end{frame}
+
+\section{natbib \& Author-Year Styles}
+
+\begin{frame}[fragile]{natbib: Author-Year Citations}
+  \begin{lstlisting}
+\usepackage[authoryear]{natbib}
+\bibliographystyle{agsm}   % or apalike -- common in economics
+...
+\bibliography{references}
+  \end{lstlisting}
+  \begin{outputbox}
+    \footnotesize
+    Nandi, B.K., Hasan, G.Q., and Kabir, M.H. (2022). A tale of the
+    financial inclusion-growth nexus. \textit{Journal of Financial
+    Economic Policy}, 14(3), 381--402.
+  \end{outputbox}
+  \whybox{\texttt{natbib} is the standard package for author-year
+  citation styles used by most economics journals. \texttt{agsm} and
+  \texttt{apalike} are common bibliography styles -- journal templates
+  usually specify their own (Day 6). \texttt{\textbackslash
+  bibliography\{references\}} points to your \texttt{.bib} file (no
+  extension) and is what actually \textbf{renders} the reference-list
+  entry shown above, formatted automatically from the raw data you
+  typed on the previous slide.}
+\end{frame}
+
+\begin{frame}[fragile]{Citation Commands: citet and citep}
+  \begin{lstlisting}
+\citet{nandi2022financial} find a positive link between
+financial inclusion and growth.
+
+Financial deepening supports growth
+\citep{nandi2022financial}.
+  \end{lstlisting}
+  \begin{outputbox}
+    \small
+    Nandi et al.\ (2022) find a positive link between financial
+    inclusion and growth.\\[6pt]
+    Financial deepening supports growth (Nandi et al., 2022).
+  \end{outputbox}
+  \whybox{\texttt{\textbackslash citet\{...\}} -- ``\textbf{t}extual'':
+  the authors' names become part of the sentence, exactly like ``Nandi
+  et al.\ (2022) find...'' above. \texttt{\textbackslash
+  citep\{...\}} -- ``\textbf{p}arenthetical'': the citation sits in
+  parentheses instead. Rule of thumb: if the authors are the subject of
+  your sentence, use \texttt{citet}; otherwise \texttt{citep}. Note
+  \texttt{natbib} auto-inserts ``et al.'' for three or more authors.}
+\end{frame}
+
+\section{biblatex: A Brief Note}
+
+\begin{frame}{biblatex as an Alternative}
+  \small
+  \texttt{biblatex} (with the \texttt{biber} backend) is a more modern,
+  flexible bibliography system that supports more citation styles out
+  of the box and handles non-English references better. For this
+  course, \textbf{natbib is sufficient} -- it is what most economics
+  journal templates already expect, so it is the lower-friction choice
+  while you are building the habit. You can switch to
+  \texttt{biblatex} later without relearning your \texttt{.bib} files
+  -- the entries themselves don't change, only the packages that read
+  them.
+\end{frame}
+
+\section{Sourcing .bib Entries}
+
+\begin{frame}{Where .bib Entries Come From}
+  \small
+  \begin{itemize}
+    \item \textbf{Google Scholar}: search the paper $\rightarrow$ click the quotation-mark ``Cite'' icon $\rightarrow$ \texttt{BibTeX} link $\rightarrow$ copy-paste.
+    \item \textbf{Reference managers} (Zotero, Mendeley): export your library directly as \texttt{.bib}.
+    \item \textbf{Journal websites}: many have a direct ``Export citation $\rightarrow$ BibTeX'' button.
+    \item \textbf{Practice source for today}: browse
+      \texttt{whiteglobeinitiative.org/published-papers} -- build real
+      \texttt{.bib} entries from WGI's own peer-reviewed output.
+  \end{itemize}
+  \vspace{4pt}
+  Always spot-check auto-generated entries -- author name formatting
+  and page ranges are the most common errors.
+\end{frame}
+
+\section{Cross-Referencing}
+
+\begin{frame}[fragile]{Cross-Referencing Sections, Equations, Tables, Figures}
+  \begin{lstlisting}
+\section{Empirical Strategy}
+\label{sec:strategy}
+
+As discussed in Section~\ref{sec:strategy}, we estimate...
+  \end{lstlisting}
+  \begin{outputbox}
+    \small As discussed in Section~2, we estimate...
+  \end{outputbox}
+  \whybox{Same \texttt{\textbackslash label} / \texttt{\textbackslash
+  ref} mechanism from Day 2 (equations) and Day 3 (tables/figures) --
+  now applied to sections. \texttt{\textbackslash ref} outputs just the
+  number; for equations, \texttt{\textbackslash eqref} additionally
+  wraps it in parentheses. These numbers update automatically as you
+  add or reorder content -- never hand-count section numbers again.}
+\end{frame}
+
+\section{Practice}
+
+\begin{frame}{Hands-on Exercise}
+  \begin{exercisebox}
+    \begin{enumerate}
+      \item Visit \texttt{whiteglobeinitiative.org/published-papers}
+        and build a \textbf{five-entry} \texttt{.bib} file from real
+        papers listed there (or your own field's literature).
+      \item Write a short mock literature-review paragraph (4--5
+        sentences) citing all five.
+      \item Use \texttt{\textbackslash citet} at least twice and
+        \texttt{\textbackslash citep} at least twice.
+      \item Compile and confirm your reference list appears correctly
+        at the end of the document.
+    \end{enumerate}
+  \end{exercisebox}
+\end{frame}
+
+\begin{frame}{Homework Before Day 5}
+  \begin{homeworkbox}
+    Build out the real bibliography for your running paper draft and
+    insert citations throughout the introduction / literature review
+    section. Aim for at least 8--10 sources.
+  \end{homeworkbox}
+  \vspace{10pt}
+  \small\textbf{Resources for today:}
+  \begin{itemize}\small
+    \item Overleaf -- ``Bibliography management with bibtex'' / ``with natbib''
+    \item Overleaf -- ``Natbib citation styles''
+    \item Overleaf -- ``Cross referencing sections, equations and floats''
+    \item Wikibooks LaTeX -- Bibliography Management chapter
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Coming Up: Day 5}
+  \Large
+  \centering
+  Document Structure \& Long-Document Tools \\[6pt]
+  \normalsize
+  Table of contents, footnotes, hyperlinks, and splitting a long paper
+  across multiple files.
+\end{frame}
+
+\begin{frame}[plain]
+  \begin{center}
+    \vspace{35pt}
+    {\Large\bfseries Thank You}\\[10pt]
+    {\large From \texttt{\textbackslash begin} to \texttt{\textbackslash end}: The Complete LaTeX Guide}\\[4pt]
+    Day 4 of 7 --- Citations \& Bibliography\\[20pt]
+    \rule{0.5\textwidth}{0.4pt}\\[10pt]
+    Atikur Rahman \\
+    White Globe Initiative \\[2pt]
+    \texttt{atik@whiteglobeinitiative.org} \\
+    \texttt{contact@whiteglobeinitiative.org}
+  \end{center}
+\end{frame}
+
+\end{document}

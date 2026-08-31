@@ -1,0 +1,303 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codekw}{RGB}{0,0,180}
+\lstdefinestyle{latexcode}{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{codekw}\bfseries,
+  commentstyle=\color{gray},
+  frame=single,
+  rulecolor=\color{gray!40},
+  breaklines=true,
+  showstringspaces=false,
+  xleftmargin=4pt,
+  xrightmargin=4pt,
+}
+\lstset{style=latexcode}
+
+\newtcolorbox{outputbox}{
+  colback=white, colframe=black!65, boxrule=0.5pt, arc=1pt,
+  left=8pt, right=8pt, top=5pt, bottom=4pt,
+  title=\textsc{Compiled Output}, fonttitle=\bfseries\scriptsize,
+  coltitle=white, colbacktitle=black!65
+}
+\newcommand{\whybox}[1]{%
+  \vspace{2pt}
+  {\scriptsize\raggedright\textcolor{red!55!black}{\textbf{Why \& What:}}~#1\par}
+}
+
+\newtcolorbox{exercisebox}{
+  colback=orange!8, colframe=orange!70!black, boxrule=0.6pt,
+  arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  title={Hands-on Exercise}, fonttitle=\bfseries, coltitle=white,
+  colbacktitle=orange!70!black
+}
+\newtcolorbox{homeworkbox}{
+  colback=blue!6, colframe=blue!50!black, boxrule=0.6pt,
+  arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  title={Homework}, fonttitle=\bfseries, coltitle=white,
+  colbacktitle=blue!50!black
+}
+
+\title[\texttt{\textbackslash begin} to \texttt{\textbackslash end}]{From \texttt{\textbackslash begin} to \texttt{\textbackslash end}}
+\subtitle{The Complete LaTeX Guide \\[2pt] \normalsize Day 5 of 7: Document Structure \& Long-Document Tools}
+\author[A.\ Rahman]{Atikur Rahman}
+\institute[White Globe Initiative]{White Globe Initiative}
+
+\setbeamertemplate{footline}{
+  \leavevmode
+  \hbox{%
+  \begin{beamercolorbox}[wd=.38\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=1em]{author in head/foot}%
+    \usebeamerfont{author in head/foot}White Globe Initiative
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.42\paperwidth,ht=2.5ex,dp=1.125ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}From \texttt{\textbackslash begin} to \texttt{\textbackslash end} --- Day 5
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.5ex,dp=1.125ex,right,rightskip=1em]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertframenumber{} / \inserttotalframenumber
+  \end{beamercolorbox}}%
+  \vskip0pt
+}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \begin{center}
+    \vspace{4pt}
+    {\Huge\bfseries\usebeamercolor[fg]{title}From \texttt{\textbackslash begin} to \texttt{\textbackslash end}}\\[6pt]
+    {\Large\itshape The Complete LaTeX Guide}\\[18pt]
+    {\large\bfseries Day 5 of 7 --- Document Structure \& Long-Document Tools}\\[22pt]
+    \rule{0.7\textwidth}{0.4pt}\\[14pt]
+    \begin{tabular}{rl}
+      \textbf{Instructor:}       & Atikur Rahman \\[3pt]
+      \textbf{Organized by:}     & White Globe Initiative \\[3pt]
+      \textbf{Instructor Email:} & \texttt{atik@whiteglobeinitiative.org} \\[3pt]
+      \textbf{General Contact:}  & \texttt{contact@whiteglobeinitiative.org} \\[3pt]
+      \textbf{Format:}           & 7-Day Intensive Course \\[3pt]
+      \textbf{Session:}          & Day 5 of 7 \\
+    \end{tabular}\\[18pt]
+    \rule{0.7\textwidth}{0.4pt}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Today's Agenda}
+  \tableofcontents
+\end{frame}
+
+\section{Recap \& Today's Goal}
+
+\begin{frame}{Quick Recap: Day 4}
+  \small
+  Yesterday: BibTeX \texttt{.bib} files, \texttt{natbib}, author-year
+  citation styles, \texttt{citet} vs.\ \texttt{citep}, and
+  cross-referencing sections with \texttt{\textbackslash
+  label}/\texttt{\textbackslash ref}.
+  \vspace{6pt}
+
+  \textbf{Today's goal:} move from a single short file to the
+  structure a full paper or thesis-length document needs, with the
+  navigation aids a reader -- or a referee -- expects.
+\end{frame}
+
+\section{Table of Contents}
+
+\begin{frame}[fragile]{Table of Contents}
+  \begin{lstlisting}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+\section{Data and Methodology}
+\section{Results}
+  \end{lstlisting}
+  \begin{outputbox}
+    \small
+    \textbf{Contents}\\[4pt]
+    1\quad Introduction \dotfill 1\\
+    2\quad Data and Methodology \dotfill 2\\
+    3\quad Results \dotfill 4
+  \end{outputbox}
+  \whybox{\texttt{\textbackslash tableofcontents} auto-generates a full
+  TOC from every \texttt{\textbackslash section} in your document --
+  you type nothing else. It \textbf{updates automatically} on every
+  recompile, including page numbers, so it never goes stale as you
+  edit. It needs \textbf{two} compiles to settle those page numbers
+  correctly the first time (Overleaf does the second pass for you).}
+\end{frame}
+
+\section{Footnotes}
+
+\begin{frame}[fragile]{How to Include a Footnote}
+  \begin{lstlisting}
+Inflation targeting has been the dominant framework
+since the 1990s.\footnote{See \citet{nandi2024crude}
+for a related discussion of exchange-rate volatility.}
+  \end{lstlisting}
+  \begin{outputbox}
+    \small Inflation targeting has been the dominant framework since
+    the 1990s.\textsuperscript{1}\\[14pt]
+    \rule{3.2cm}{0.3pt}\\
+    {\tiny \textsuperscript{1}See Nandi (2024) for a related discussion of exchange-rate volatility.}
+  \end{outputbox}
+  \whybox{\texttt{\textbackslash footnote\{...\}} does two things at
+  once: it drops a small superscript number right where you typed the
+  command (see the ``1'' after ``1990s.'' above), and it automatically
+  prints the matching numbered note at the \textbf{bottom of that same
+  page}, below a short rule -- exactly as shown in the output box.
+  Numbering is continuous and automatic across the whole document, so
+  you never assign numbers yourself. Economics convention: use
+  footnotes for asides or methodological details, and use citations
+  (Day 4) for sources -- don't use footnotes as a second bibliography.}
+\end{frame}
+
+\section{Hyperlinks}
+
+\begin{frame}[fragile]{hyperref: Clickable Cross-References}
+  \begin{lstlisting}
+\usepackage{hyperref}   % load LAST in the preamble
+
+See Section~\ref{sec:strategy} or visit
+\href{https://whiteglobeinitiative.org}{our website}.
+  \end{lstlisting}
+  \begin{outputbox}
+    \small See Section~\textcolor{blue}{2} or visit
+    \textcolor{blue}{\underline{our website}}.
+  \end{outputbox}
+  \whybox{Loading \texttt{hyperref} turns every \texttt{
+  \textbackslash ref}, \texttt{\textbackslash eqref}, \texttt{
+  \textbackslash cite}, and TOC entry into a \textbf{clickable link}
+  in the PDF -- shown in blue above, though colors are configurable.
+  \texttt{\textbackslash href\{url\}\{text\}} adds a real hyperlink.
+  \textbf{Load order matters}: put \texttt{hyperref} as the
+  \emph{last} \texttt{\textbackslash usepackage} in your preamble to
+  avoid conflicts with other packages.}
+\end{frame}
+
+\section{Multi-file Projects}
+
+\begin{frame}[fragile]{Splitting a Long Paper Across Files}
+  \vspace{-4pt}
+  \begin{lstlisting}[basicstyle=\ttfamily\tiny,aboveskip=1pt,belowskip=1pt]
+% main.tex
+\documentclass{article}
+\usepackage{amsmath, natbib, hyperref}
+\begin{document}
+\maketitle
+\tableofcontents
+\input{introduction}
+\input{literature}
+\input{methodology}
+\bibliography{references}
+\end{document}
+  \end{lstlisting}
+  \begin{outputbox}
+    \scriptsize\ttfamily
+    Project files: main.tex, introduction.tex, literature.tex,
+    methodology.tex, references.bib\\[3pt]
+    \normalfont\footnotesize One combined PDF -- identical to writing
+    it all in a single file.
+  \end{outputbox}
+  \whybox{\texttt{\textbackslash input\{filename\}} pulls in
+  \texttt{filename.tex} at that exact point -- write each section in
+  its own file. The \textbf{compiled PDF looks no different}; only
+  your project became easier to navigate. \texttt{\textbackslash
+  include} is a close cousin, better suited to \emph{chapters}.}
+\end{frame}
+
+\section{Page Numbering \& Headers}
+
+\begin{frame}[fragile]{Page Numbering, Headers and Footers}
+  \vspace{-4pt}
+  \begin{lstlisting}[aboveskip=1pt,belowskip=1pt]
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\rhead{Draft -- Do Not Circulate}
+\lhead{Remittances and Consumption Smoothing}
+  \end{lstlisting}
+  \begin{outputbox}
+    \scriptsize
+    Remittances and Consumption Smoothing \hfill Draft -- Do Not Circulate\\
+    \rule{\linewidth}{0.3pt}\\[6pt]
+    \footnotesize (page body here)\\[6pt]
+    \rule{\linewidth}{0.3pt}\\
+    \hfill 3 \hfill
+  \end{outputbox}
+  \whybox{Default \texttt{article} numbering is centered at the bottom
+  -- fine for most submissions. \texttt{fancyhdr} lets you add running
+  headers, like the short title and a draft watermark shown above --
+  common for working-paper versions. Check your target journal's
+  template first (Day 6): most already configure this for you.}
+\end{frame}
+
+\section{Practice}
+
+\begin{frame}{Hands-on Exercise}
+  \begin{exercisebox}
+    Split your running paper draft into separate files:
+    \texttt{introduction.tex}, \texttt{literature.tex},
+    \texttt{methodology.tex}, \texttt{results.tex},
+    \texttt{conclusion.tex}. Assemble them into a \texttt{main.tex}
+    using \texttt{\textbackslash input}, add
+    \texttt{\textbackslash tableofcontents}, and add at least one
+    \texttt{\textbackslash footnote} somewhere in the text. Confirm the
+    document compiles to a single, correctly ordered PDF.
+  \end{exercisebox}
+\end{frame}
+
+\begin{frame}{Homework Before Day 6}
+  \begin{homeworkbox}
+    Load \texttt{hyperref} and confirm every cross-reference
+    (equations, tables, figures, sections, citations) is clickable and
+    resolves correctly -- fix any \texttt{??} you find.
+  \end{homeworkbox}
+  \vspace{10pt}
+  \small\textbf{Resources for today:}
+  \begin{itemize}\small
+    \item Overleaf -- ``Sections and chapters'' / ``Table of contents''
+    \item Overleaf -- ``Footnotes'' / ``Hyperlinks''
+    \item Overleaf -- ``Multi-file LaTeX projects''
+    \item Overleaf -- ``Page numbering'' / ``Headers and footers''
+    \item Wikibooks LaTeX -- Document Structure chapter
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Coming Up: Day 6}
+  \Large
+  \centering
+  Journal Templates \& Professional Formatting \\[6pt]
+  \normalsize
+  Migrating your full paper into a real economics-journal template,
+  end to end.
+\end{frame}
+
+\begin{frame}[plain]
+  \begin{center}
+    \vspace{35pt}
+    {\Large\bfseries Thank You}\\[10pt]
+    {\large From \texttt{\textbackslash begin} to \texttt{\textbackslash end}: The Complete LaTeX Guide}\\[4pt]
+    Day 5 of 7 --- Document Structure \& Long-Document Tools\\[20pt]
+    \rule{0.5\textwidth}{0.4pt}\\[10pt]
+    Atikur Rahman \\
+    White Globe Initiative \\[2pt]
+    \texttt{atik@whiteglobeinitiative.org} \\
+    \texttt{contact@whiteglobeinitiative.org}
+  \end{center}
+\end{frame}
+
+\end{document}

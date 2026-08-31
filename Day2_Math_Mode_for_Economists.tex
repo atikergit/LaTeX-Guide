@@ -1,0 +1,353 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codekw}{RGB}{0,0,180}
+\lstdefinestyle{latexcode}{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{codekw}\bfseries,
+  commentstyle=\color{gray},
+  frame=single,
+  rulecolor=\color{gray!40},
+  breaklines=true,
+  showstringspaces=false,
+  xleftmargin=4pt,
+  xrightmargin=4pt,
+}
+\lstset{style=latexcode}
+
+\newtcolorbox{outputbox}{
+  colback=white, colframe=black!65, boxrule=0.5pt, arc=1pt,
+  left=8pt, right=8pt, top=5pt, bottom=4pt,
+  title=\textsc{Compiled Output}, fonttitle=\bfseries\scriptsize,
+  coltitle=white, colbacktitle=black!65
+}
+\newcommand{\whybox}[1]{%
+  \vspace{2pt}
+  {\scriptsize\raggedright\textcolor{red!55!black}{\textbf{Why \& What:}}~#1\par}
+}
+
+\newtcolorbox{exercisebox}{
+  colback=orange!8, colframe=orange!70!black, boxrule=0.6pt,
+  arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  title={Hands-on Exercise}, fonttitle=\bfseries, coltitle=white,
+  colbacktitle=orange!70!black
+}
+\newtcolorbox{homeworkbox}{
+  colback=blue!6, colframe=blue!50!black, boxrule=0.6pt,
+  arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  title={Homework}, fonttitle=\bfseries, coltitle=white,
+  colbacktitle=blue!50!black
+}
+
+\title[\texttt{\textbackslash begin} to \texttt{\textbackslash end}]{From \texttt{\textbackslash begin} to \texttt{\textbackslash end}}
+\subtitle{The Complete LaTeX Guide \\[2pt] \normalsize Day 2 of 7: Math Mode for Economists}
+\author[A.\ Rahman]{Atikur Rahman}
+\institute[White Globe Initiative]{White Globe Initiative}
+
+\setbeamertemplate{footline}{
+  \leavevmode
+  \hbox{%
+  \begin{beamercolorbox}[wd=.38\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=1em]{author in head/foot}%
+    \usebeamerfont{author in head/foot}White Globe Initiative
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.42\paperwidth,ht=2.5ex,dp=1.125ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}From \texttt{\textbackslash begin} to \texttt{\textbackslash end} --- Day 2
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.5ex,dp=1.125ex,right,rightskip=1em]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertframenumber{} / \inserttotalframenumber
+  \end{beamercolorbox}}%
+  \vskip0pt
+}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \begin{center}
+    \vspace{4pt}
+    {\Huge\bfseries\usebeamercolor[fg]{title}From \texttt{\textbackslash begin} to \texttt{\textbackslash end}}\\[6pt]
+    {\Large\itshape The Complete LaTeX Guide}\\[18pt]
+    {\large\bfseries Day 2 of 7 --- Math Mode for Economists}\\[22pt]
+    \rule{0.7\textwidth}{0.4pt}\\[14pt]
+    \begin{tabular}{rl}
+      \textbf{Instructor:}       & Atikur Rahman \\[3pt]
+      \textbf{Organized by:}     & White Globe Initiative \\[3pt]
+      \textbf{Instructor Email:} & \texttt{atik@whiteglobeinitiative.org} \\[3pt]
+      \textbf{General Contact:}  & \texttt{contact@whiteglobeinitiative.org} \\[3pt]
+      \textbf{Format:}           & 7-Day Intensive Course \\[3pt]
+      \textbf{Session:}          & Day 2 of 7 \\
+    \end{tabular}\\[18pt]
+    \rule{0.7\textwidth}{0.4pt}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Today's Agenda}
+  \tableofcontents
+\end{frame}
+
+\section{Recap \& Today's Goal}
+
+\begin{frame}{Quick Recap: Day 1}
+  \small
+  Last day you learned document anatomy: preamble vs.\ body,
+  \texttt{\textbackslash documentclass}, \texttt{\textbackslash
+  usepackage}, the title block, sections, paragraphs, bold/italic text,
+  and how to read your first compile errors.
+  \vspace{6pt}
+
+  \textbf{Today's goal:} equations are the single biggest reason
+  economists switch to LaTeX. By the end of today you will typeset
+  models, regression specifications, and notation with full precision
+  -- no equation editor required.
+\end{frame}
+
+\section{Math Mode Basics}
+
+\begin{frame}[fragile]{Inline vs.\ Display Math}
+  \begin{lstlisting}
+The elasticity is $\varepsilon = \frac{dQ}{dP}\cdot\frac{P}{Q}$.
+
+\begin{equation}
+  \pi = TR - TC
+\end{equation}
+  \end{lstlisting}
+  \begin{outputbox}
+    \small The elasticity is $\varepsilon = \frac{dQ}{dP}\cdot\frac{P}{Q}$.
+    \vspace{6pt}
+    \[ \pi = TR - TC \tag{1} \]
+  \end{outputbox}
+  \whybox{\texttt{\$...\$} is \textbf{inline} math -- it flows inside a
+  line of text, like the elasticity formula above. The
+  \texttt{equation} environment is \textbf{display} math -- it's
+  centered on its own line and, unlike \texttt{\textbackslash[...\textbackslash]},
+  is \textbf{automatically numbered}, which matters once you start
+  cross-referencing equations (Day 4--5).}
+\end{frame}
+
+\begin{frame}[fragile]{The amsmath Package}
+  \begin{lstlisting}
+\usepackage{amsmath}
+  \end{lstlisting}
+  \whybox{This single line has no visible output on its own, but load
+  it in \textbf{every} paper with math -- it is the standard extension
+  to LaTeX's native math tools. Without it, the multi-line derivations
+  (\texttt{align}), the matrices, and several symbols used constantly
+  in economics are simply unavailable. Every math example for the rest
+  of today assumes \texttt{amsmath} is loaded.}
+\end{frame}
+
+\section{Subscripts, Superscripts \& Notation}
+
+\begin{frame}[fragile]{Subscripts and Superscripts}
+  \begin{lstlisting}
+$x_i$              % single-character subscript
+$Y_{it}$           % braces needed for multi-character
+$X_{i,t-1}^{2}$    % subscript AND superscript, lagged
+  \end{lstlisting}
+  \begin{outputbox}
+    \[ x_i \qquad Y_{it} \qquad X_{i,t-1}^{2} \]
+  \end{outputbox}
+  \whybox{\texttt{\_} makes a subscript, \texttt{\textasciicircum}
+  makes a superscript. \textbf{Critical rule:} without braces, only
+  the \emph{first character} is affected -- \texttt{Y\_it} silently
+  renders as $Y_it$ (wrong: only ``i'' is subscripted), not $Y_{it}$
+  (correct). Always brace multi-character sub/superscripts -- this is
+  the exact notation you'll use for panel data: $Y_{it}$, $X_{i,t-1}$.}
+\end{frame}
+
+\begin{frame}[fragile]{Greek Letters and Common Symbols}
+  \begin{lstlisting}
+$\alpha$  $\beta$  $\theta$  $\lambda$  $\sigma$
+$\Sigma$  $\Delta$  $\Omega$  $\infty$
+  \end{lstlisting}
+  \begin{outputbox}
+    \[ \alpha\ \beta\ \theta\ \lambda\ \sigma\qquad
+       \Sigma\ \Delta\ \Omega\ \infty \]
+  \end{outputbox}
+  \whybox{Every Greek letter used in economic notation has a matching
+  command: lowercase names give lowercase letters
+  (\texttt{\textbackslash alpha} $\to\alpha$), capitalized command
+  names give capital letters (\texttt{\textbackslash Sigma}
+  $\to\Sigma$). These only work \textbf{inside math mode} (between
+  \texttt{\$} signs) -- typing \texttt{alpha} outside math mode just
+  prints the word ``alpha''. Full reference: Overleaf -- ``List of
+  Greek letters and math symbols''.}
+\end{frame}
+
+\begin{frame}[fragile]{Operators: Sums, Products, Limits, Max}
+  \begin{lstlisting}
+$\displaystyle\sum_{i=1}^{n} x_i \qquad \lim_{x\to\infty} \qquad
+\operatorname*{argmax}_{x} f(x)$
+  \end{lstlisting}
+  \begin{outputbox}
+    \[ \displaystyle\sum_{i=1}^{n} x_i \qquad \lim_{x\to\infty} \qquad
+       \operatorname*{argmax}_{x} f(x) \]
+  \end{outputbox}
+  \whybox{\texttt{\textbackslash sum}, \texttt{\textbackslash prod}, and
+  \texttt{\textbackslash lim} take \texttt{\_} and
+  \texttt{\textasciicircum} to set their bounds, exactly like
+  subscripts. \texttt{\textbackslash displaystyle} forces the
+  ``full-size'' rendering (bounds above/below the symbol) even inline.
+  \texttt{\textbackslash operatorname*\{argmax\}} is how you typeset
+  operators LaTeX doesn't already know, like \emph{argmax} or
+  \emph{argmin}, with a subscript stacked underneath.}
+\end{frame}
+
+\section{Fractions \& Multi-line Derivations}
+
+\begin{frame}[fragile]{Fractions and Binomials}
+  \begin{lstlisting}
+$\varepsilon_d = \dfrac{\%\,\Delta Q_d}{\%\,\Delta P}
+\qquad \dbinom{n}{k} = \dfrac{n!}{k!(n-k)!}$
+  \end{lstlisting}
+  \begin{outputbox}
+    \[ \varepsilon_d = \dfrac{\%\,\Delta Q_d}{\%\,\Delta P}
+       \qquad \dbinom{n}{k} = \dfrac{n!}{k!(n-k)!} \]
+  \end{outputbox}
+  \whybox{\texttt{\textbackslash frac\{a\}\{b\}} typesets a fraction;
+  \texttt{\textbackslash dfrac} forces the larger ``display style''
+  size even inline, which is usually what you want for readability.
+  \texttt{\textbackslash binom\{n\}\{k\}} typesets a binomial
+  coefficient the same way. Both take exactly two braced arguments --
+  numerator/denominator, or top/bottom.}
+\end{frame}
+
+\begin{frame}[fragile]{Multi-line Derivations with align}
+  \begin{lstlisting}
+\begin{align}
+  \hat{\beta} &= (X'X)^{-1}X'Y \\
+  \text{Var}(\hat{\beta}) &= \sigma^2 (X'X)^{-1}
+\end{align}
+  \end{lstlisting}
+  \begin{outputbox}
+    \begin{align*}
+      \hat{\beta} &= (X'X)^{-1}X'Y \\
+      \mathrm{Var}(\hat{\beta}) &= \sigma^2 (X'X)^{-1}
+    \end{align*}
+  \end{outputbox}
+  \whybox{\texttt{\&} marks the point where every line should line up
+  vertically -- usually right before the \texttt{=} sign, which is why
+  both equations above have their equals signs stacked. \texttt{
+  \textbackslash\textbackslash} ends each line. Plain \texttt{align}
+  numbers every line (as it would here); \texttt{align*} suppresses
+  numbering entirely.}
+\end{frame}
+
+\section{Matrices}
+
+\begin{frame}[fragile]{Matrices: Linear Algebra \& Game Theory}
+  \begin{lstlisting}
+$\begin{pmatrix} 1 & 0.5 \\ 0.5 & 1 \end{pmatrix}
+\qquad
+\begin{pmatrix} (3,3) & (0,5) \\ (5,0) & (1,1) \end{pmatrix}$
+  \end{lstlisting}
+  \begin{outputbox}
+    \[ \begin{pmatrix} 1 & 0.5 \\ 0.5 & 1 \end{pmatrix}
+       \qquad
+       \begin{pmatrix} (3,3) & (0,5) \\ (5,0) & (1,1) \end{pmatrix} \]
+  \end{outputbox}
+  \whybox{Inside \texttt{pmatrix}, rows are separated by \texttt{
+  \textbackslash\textbackslash} and entries within a row by \texttt{\&}
+  -- the same grid logic as a \texttt{tabular} table (Day 3). The left
+  matrix is a correlation matrix; the right is a $2\times2$
+  game-theory payoff matrix. \texttt{pmatrix} gives parentheses,
+  \texttt{bmatrix} gives square brackets, \texttt{vmatrix} gives
+  determinant bars.}
+\end{frame}
+
+\section{Numbering \& Referencing Equations}
+
+\begin{frame}[fragile]{Labeling and Referencing Equations}
+  \begin{lstlisting}
+\begin{equation}
+  \label{eq:cobb-douglas}
+  Y = A K^{\alpha} L^{1-\alpha}
+\end{equation}
+
+As shown in Equation~\eqref{eq:cobb-douglas}, output depends on...
+  \end{lstlisting}
+  \begin{outputbox}
+    \[ Y = AK^{\alpha}L^{1-\alpha} \tag{1} \]
+    \small As shown in Equation~(1), output depends on...
+  \end{outputbox}
+  \whybox{\texttt{\textbackslash label\{...\}} silently tags the
+  equation right after it is numbered -- it produces \textbf{no
+  visible output} by itself. \texttt{\textbackslash eqref\{...\}} is
+  what turns that tag into the visible \textbf{``(1)''} in your
+  sentence -- and it \textbf{stays correct automatically} even if you
+  add or remove equations earlier in the paper. This is the exact
+  mechanism you'll reuse for tables, figures, and sections all week.}
+\end{frame}
+
+\section{Practice}
+
+\begin{frame}{Hands-on Exercise}
+  \begin{exercisebox}
+    Typeset the following three items from scratch in a new Overleaf
+    document (remember \texttt{\textbackslash usepackage\{amsmath\}}):
+    \begin{enumerate}
+      \item A \textbf{Cobb-Douglas production function}:
+        $Y = AK^{\alpha}L^{1-\alpha}$, numbered and labeled.
+      \item A \textbf{linear regression equation} with a subscripted
+        error term: $Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i$.
+      \item A \textbf{2$\times$2 game-theory payoff matrix} using
+        \texttt{pmatrix}.
+    \end{enumerate}
+    Reference the Cobb-Douglas equation by number in a sentence below
+    it using \texttt{\textbackslash eqref}.
+  \end{exercisebox}
+\end{frame}
+
+\begin{frame}{Homework Before Day 3}
+  \begin{homeworkbox}
+    Add the full set of equations from your running paper draft (or,
+    if it has none yet, from a model relevant to your field) into the
+    document you started on Day 1. Label every numbered equation.
+  \end{homeworkbox}
+  \vspace{10pt}
+  \small\textbf{Resources for today:}
+  \begin{itemize}\small
+    \item Overleaf -- ``Mathematical expressions'' / ``Subscripts and superscripts''
+    \item Overleaf -- ``Fractions and Binomials'' / ``Aligning equations with amsmath''
+    \item Overleaf -- ``List of Greek letters and math symbols'' / ``Matrices''
+    \item Wikibooks LaTeX -- Mathematics chapter
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Coming Up: Day 3}
+  \Large
+  \centering
+  Tables, Figures \& Regression Output \\[6pt]
+  \normalsize
+  Publication-quality tables with \texttt{booktabs}, figures, and a
+  fast workflow from Excel/Stata output to LaTeX.
+\end{frame}
+
+\begin{frame}[plain]
+  \begin{center}
+    \vspace{35pt}
+    {\Large\bfseries Thank You}\\[10pt]
+    {\large From \texttt{\textbackslash begin} to \texttt{\textbackslash end}: The Complete LaTeX Guide}\\[4pt]
+    Day 2 of 7 --- Math Mode for Economists\\[20pt]
+    \rule{0.5\textwidth}{0.4pt}\\[10pt]
+    Atikur Rahman \\
+    White Globe Initiative \\[2pt]
+    \texttt{atik@whiteglobeinitiative.org} \\
+    \texttt{contact@whiteglobeinitiative.org}
+  \end{center}
+\end{frame}
+
+\end{document}
